@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
+//Testing Royson commit
+
 namespace RCL_Inventory.Models
 {
     public class CategoriesController : Controller
     {
         private readonly InventoryContext _context;
-
+        
         public CategoriesController(InventoryContext context)
         {
             _context = context;
