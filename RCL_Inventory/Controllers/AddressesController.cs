@@ -9,22 +9,22 @@ using RCL_Inventory.Models;
 
 namespace RCL_Inventory.Controllers
 {
-    public class LoginsController : Controller
+    public class AddressesController : Controller
     {
         private readonly InventoryContext _context;
 
-        public LoginsController(InventoryContext context)
+        public AddressesController(InventoryContext context)
         {
             _context = context;
         }
 
-        // GET: Logins
+        // GET: Addresses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Logins.ToListAsync());
+            return View(await _context.Addresses.ToListAsync());
         }
 
-        // GET: Logins/Details/5
+        // GET: Addresses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RCL_Inventory.Controllers
                 return NotFound();
             }
 
-            var login = await _context.Logins
-                .FirstOrDefaultAsync(m => m.LoginID == id);
-            if (login == null)
+            var address = await _context.Addresses
+                .FirstOrDefaultAsync(m => m.AddressId == id);
+            if (address == null)
             {
                 return NotFound();
             }
 
-            return View(login);
+            return View(address);
         }
 
-        // GET: Logins/Create
+        // GET: Addresses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Logins/Create
+        // POST: Addresses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LoginID,Name,Password")] Login login)
+        public async Task<IActionResult> Create([Bind("AddressId,Country,City,Province,PostalCode,Street")] Address address)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(login);
+                _context.Add(address);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(login);
+            return View(address);
         }
 
-        // GET: Logins/Edit/5
+        // GET: Addresses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RCL_Inventory.Controllers
                 return NotFound();
             }
 
-            var login = await _context.Logins.FindAsync(id);
-            if (login == null)
+            var address = await _context.Addresses.FindAsync(id);
+            if (address == null)
             {
                 return NotFound();
             }
-            return View(login);
+            return View(address);
         }
 
-        // POST: Logins/Edit/5
+        // POST: Addresses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LoginID,Name,Password")] Login login)
+        public async Task<IActionResult> Edit(int id, [Bind("AddressId,Country,City,Province,PostalCode,Street")] Address address)
         {
-            if (id != login.LoginID)
+            if (id != address.AddressId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RCL_Inventory.Controllers
             {
                 try
                 {
-                    _context.Update(login);
+                    _context.Update(address);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LoginExists(login.LoginID))
+                    if (!AddressExists(address.AddressId))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RCL_Inventory.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(login);
+            return View(address);
         }
 
-        // GET: Logins/Delete/5
+        // GET: Addresses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace RCL_Inventory.Controllers
                 return NotFound();
             }
 
-            var login = await _context.Logins
-                .FirstOrDefaultAsync(m => m.LoginID == id);
-            if (login == null)
+            var address = await _context.Addresses
+                .FirstOrDefaultAsync(m => m.AddressId == id);
+            if (address == null)
             {
                 return NotFound();
             }
 
-            return View(login);
+            return View(address);
         }
 
-        // POST: Logins/Delete/5
+        // POST: Addresses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var login = await _context.Logins.FindAsync(id);
-            _context.Logins.Remove(login);
+            var address = await _context.Addresses.FindAsync(id);
+            _context.Addresses.Remove(address);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LoginExists(int id)
+        private bool AddressExists(int id)
         {
-            return _context.Logins.Any(e => e.LoginID == id);
+            return _context.Addresses.Any(e => e.AddressId == id);
         }
     }
 }

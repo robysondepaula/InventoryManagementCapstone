@@ -21,8 +21,7 @@ namespace RCL_Inventory.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            var inventoryContext = _context.Transaction.Include(t => t.Product);
-        
+            var inventoryContext = _context.Transaction.Include(t => t.Product).Include(t => t.TransactionType);
             return View(await inventoryContext.ToListAsync());
         }
 
@@ -36,6 +35,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)
             {
@@ -48,8 +48,8 @@ namespace RCL_Inventory.Controllers
         // GET: Transactions/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name");
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,CategoryId,ProductId")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("TransactionId,Date,CategoryId,ProductId,TransactionTypeId")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +66,8 @@ namespace RCL_Inventory.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", transaction.CategoryId);
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
             return View(transaction);
         }
 
@@ -85,6 +85,7 @@ namespace RCL_Inventory.Controllers
                 return NotFound();
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
             return View(transaction);
         }
 
@@ -93,7 +94,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,CategoryId,ProductId")] Transaction transaction)
+        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,Date,CategoryId,ProductId,TransactionTypeId")] Transaction transaction)
         {
             if (id != transaction.TransactionId)
             {
@@ -121,6 +122,7 @@ namespace RCL_Inventory.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
             return View(transaction);
         }
 
@@ -134,6 +136,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)
             {

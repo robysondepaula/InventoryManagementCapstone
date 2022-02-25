@@ -5,26 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RCL_Inventory.Models;
 
-
-namespace RCL_Inventory.Models
+namespace RCL_Inventory.Controllers
 {
-    public class CategoriesController : Controller
+    public class UsersController : Controller
     {
         private readonly InventoryContext _context;
-        
-        public CategoriesController(InventoryContext context)
+
+        public UsersController(InventoryContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.LoginID == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(user);
         }
 
-        // GET: Categories/Create
+        // GET: Users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("LoginID,Username,Password,Role")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(user);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(user);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("LoginID,Username,Password,Role")] User user)
         {
-            if (id != category.CategoryId)
+            if (id != user.LoginID)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RCL_Inventory.Models
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.CategoryId))
+                    if (!UserExists(user.LoginID))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RCL_Inventory.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(user);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.LoginID == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(user);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return _context.Users.Any(e => e.LoginID == id);
         }
     }
 }

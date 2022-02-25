@@ -10,10 +10,17 @@ namespace RCL_Inventory.Models
     {
 
         public DbSet<Transaction> Transaction { get; set; }
-        public DbSet<Login> Logins { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+
+
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }
+        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +63,11 @@ namespace RCL_Inventory.Models
                     CategoryId = 3
                 });
 
+
+            modelBuilder.Entity<TransactionType>().HasData(
+           new TransactionType { TransactionTypeId = 1, Name = "Purchase" },
+           new TransactionType { TransactionTypeId = 2, Name = "Sale" },
+           new TransactionType { TransactionTypeId = 3, Name = "Lose" });
 
         }
     }

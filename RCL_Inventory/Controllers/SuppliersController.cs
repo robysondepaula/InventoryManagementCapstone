@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RCL_Inventory.Models;
 
-
-namespace RCL_Inventory.Models
+namespace RCL_Inventory.Controllers
 {
-    public class CategoriesController : Controller
+    public class SuppliersController : Controller
     {
         private readonly InventoryContext _context;
-        
-        public CategoriesController(InventoryContext context)
+
+        public SuppliersController(InventoryContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Suppliers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            var inventoryContext = _context.Suppliers.Include(s => s.Address);
+            return View(await inventoryContext.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Suppliers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,42 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var supplier = await _context.Suppliers
+                .Include(s => s.Address)
+                .FirstOrDefaultAsync(m => m.SupplierId == id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(supplier);
         }
 
-        // GET: Categories/Create
+        // GET: Suppliers/Create
         public IActionResult Create()
         {
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Suppliers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(supplier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
+            return View(supplier);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Suppliers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +76,23 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var supplier = await _context.Suppliers.FindAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
-            return View(category);
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
+            return View(supplier);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Suppliers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
         {
-            if (id != category.CategoryId)
+            if (id != supplier.SupplierId)
             {
                 return NotFound();
             }
@@ -96,12 +101,12 @@ namespace RCL_Inventory.Models
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(supplier);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.CategoryId))
+                    if (!SupplierExists(supplier.SupplierId))
                     {
                         return NotFound();
                     }
@@ -112,10 +117,11 @@ namespace RCL_Inventory.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
+            return View(supplier);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Suppliers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +129,31 @@ namespace RCL_Inventory.Models
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var supplier = await _context.Suppliers
+                .Include(s => s.Address)
+                .FirstOrDefaultAsync(m => m.SupplierId == id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(supplier);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var supplier = await _context.Suppliers.FindAsync(id);
+            _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool SupplierExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return _context.Suppliers.Any(e => e.SupplierId == id);
         }
     }
 }
