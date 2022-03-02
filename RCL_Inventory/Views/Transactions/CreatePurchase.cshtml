@@ -1,0 +1,161 @@
+﻿@model PurchaseProductViewModels
+<!--IEnumerable<RCL_Inventory.Models.ViewModels.PurchaseProductViewModels>-->
+
+@{
+    ViewData["Title"] = "CreatePurchase";
+}
+
+<h1 class="font-weight-bolder">Create a New Purchase</h1>
+
+<form asp-action="CreatePurchase" method="post">
+
+
+    <!-- Invisivel atributes -->
+    <div hidden class="form-group">
+        <input id="ProductId" asp-for="Transaction.ProductId" class="form-control" />
+    </div>
+    <div hidden class="form-group">
+        <input id="CategoryId" asp-for="Transaction.CategoryId" class="form-control" />
+    </div>
+    <div hidden class="form-group">
+        <input id="SupplierId" asp-for="Transaction.SupplierId" class="form-control" />
+    </div>
+    <!--Product Table-->
+    <div class="card">
+        <div class="card-header"> Products</div>
+        <div class="card-body">
+            <table id="productTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Category Name
+                        </th>
+                        <th>
+                            Product Name
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductsList)
+                    {
+                        <tr onclick="passProductId('@item.ProductId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Product Table-->
+    <div class="card mt-3">
+        <div class="card-header"> Suppliers</div>
+        <div class="card-body">
+            <table id="supplierTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Supplier Name
+                        </th>
+                        <th>
+                            Supplier ID
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SuppliersList)
+                    {
+                        <tr onclick="passSupplierId('@item.SupplierId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SupplierId)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="card mt-3 ">
+        <div class="card-header"> Transaction Detail</div>
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <div class="form-group">
+                    <label asp-for="Transaction.Date" class="control-label"></label>
+                    <input asp-for="Transaction.Date" class="form-control" />
+                    <span asp-validation-for="Transaction.Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="@Model.Transaction.Quantity" class="control-label"></label>
+                <input asp-for="@Model.Transaction.Quantity" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
+
+    <div class="mt-2 row d-flex justify-content-center">
+        <input type="submit" class="btn btn-primary  " value="Create a New Purchase" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var productTable = $('#productTable').DataTable();
+
+            $('#productTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    productTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passProductId(ProductId) {
+            document.getElementById('ProductId').value = ProductId;
+            console.log(ProductId);
+        }
+
+
+
+        $(document).ready(function () {
+            var supplierTable = $('#supplierTable').DataTable();
+
+            $('#supplierTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    supplierTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+
+        function passSupplierId(SupplierId) {
+            document.getElementById('SupplierId').value = SupplierId;
+            console.log(SupplierId);
+        }
+
+
+    </script>
+}

@@ -14,16 +14,18 @@ namespace RCL_Inventory.Models
         public DateTime Date { get; set; }
 
 
-        [Required(ErrorMessage = "Please enter the Category Name.")]
+
         public int CategoryId { get; set; }
         
-        [Required]
+
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        [Required]
+        public int Quantity { get; set; }
+
         public int TransactionTypeId { get; set; }
         public TransactionType TransactionType { get; set; }
 
+        public int SupplierId { get; set; }
     }
 }

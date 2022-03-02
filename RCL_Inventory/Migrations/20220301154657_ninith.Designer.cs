@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RCL_Inventory.Models;
 
 namespace RCL_Inventory.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20220301154657_ninith")]
+    partial class ninith
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,9 +188,6 @@ namespace RCL_Inventory.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TransactionTypeId")
                         .HasColumnType("int");
 
@@ -241,9 +240,6 @@ namespace RCL_Inventory.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -257,8 +253,6 @@ namespace RCL_Inventory.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LoginID");
-
-                    b.HasIndex("AddressId");
 
                     b.ToTable("Users");
                 });
@@ -302,17 +296,6 @@ namespace RCL_Inventory.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("TransactionType");
-                });
-
-            modelBuilder.Entity("RCL_Inventory.Models.User", b =>
-                {
-                    b.HasOne("RCL_Inventory.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

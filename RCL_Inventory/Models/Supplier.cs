@@ -27,5 +27,7 @@ namespace RCL_Inventory.Models
         [Required]
         public int AddressId { get; set; }
         public Address Address { get; set; }
+
+
     }
 }

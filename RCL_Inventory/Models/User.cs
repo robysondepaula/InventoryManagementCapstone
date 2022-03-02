@@ -18,9 +18,8 @@ namespace RCL_Inventory.Models
         public string Password { get; set; }
         [Required(ErrorMessage = "Enter your Role")]
         public string Role { get; set; }
-
-
-
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
 
     }
 }
