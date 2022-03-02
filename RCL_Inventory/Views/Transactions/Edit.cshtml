@@ -1,49 +1,169 @@
-﻿@model RCL_Inventory.Models.Transaction
+﻿@model PurchaseProductViewModels
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 class="font-weight-bolder">Edit a Purchase</h1>
 
 <h4>Transaction</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TransactionId" />
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
-                <span asp-validation-for="ProductId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactionTypeId" class="control-label"></label>
-                <select asp-for="TransactionTypeId" class="form-control" asp-items="ViewBag.TransactionTypeId"></select>
-                <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<input value="@Model.TransactionId"/>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="TransactionId" />
+    <!-- Invisivel atributes -->
+    <div hidden class="form-group">
+        <input id="ProductId" asp-for="Transaction.ProductId" class="form-control" />
     </div>
-</div>
+    <div hidden class="form-group">
+        <input id="CategoryId" asp-for="Transaction.CategoryId" class="form-control" />
+    </div>
+    <div hidden class="form-group">
+        <input id="SupplierId" asp-for="Transaction.SupplierId" class="form-control" />
+    </div>
+    <!--Product Table-->
+    <div class="card">
+        <div class="card-header"> Products</div>
+        <div class="card-body">
+            <table id="productTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Transaction.CategoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.Name)
+
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductsList)
+                    {
+                        <tr onclick="passProductId('@item.ProductId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Product Table-->
+    <div class="card mt-3">
+        <div class="card-header"> Suppliers</div>
+        <div class="card-body">
+            <table id="supplierTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Supplier.SupplierId)
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Supplier.Name)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SuppliersList)
+                    {
+                        <tr onclick="passSupplierId('@item.SupplierId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SupplierId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="card mt-3 ">
+        <div class="card-header"> Transaction Detail</div>
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <div class="form-group">
+                    <label asp-for="Transaction.Date" class="control-label"></label>
+                    <input asp-for="Transaction.Date" class="form-control" />
+                    <span asp-validation-for="Transaction.Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="@Model.Transaction.Quantity" class="control-label"></label>
+                <input asp-for="@Model.Transaction.Quantity" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var productTable = $('#productTable').DataTable();
+
+            $('#productTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    productTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passProductId(ProductId) {
+            document.getElementById('ProductId').value = ProductId;
+            console.log(ProductId);
+        }
+
+
+
+        $(document).ready(function () {
+            var supplierTable = $('#supplierTable').DataTable();
+
+            $('#supplierTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    supplierTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+
+        function passSupplierId(SupplierId) {
+            document.getElementById('SupplierId').value = SupplierId;
+            console.log(SupplierId);
+        }
+
+
+    </script>
 }

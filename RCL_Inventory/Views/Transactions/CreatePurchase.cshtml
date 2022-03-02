@@ -22,16 +22,17 @@
     </div>
     <!--Product Table-->
     <div class="card">
-        <div class="card-header"> Products</div>
+        <div class="card-header">Products List</div>
         <div class="card-body">
             <table id="productTable" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>
-                            Category Name
+                            @Html.DisplayNameFor(model => model.Transaction.CategoryId)
                         </th>
                         <th>
-                            Product Name
+                            @Html.DisplayNameFor(model => model.Products.Name)
+
                         </th>
 
                     </tr>
@@ -56,16 +57,17 @@
 
     <!--Product Table-->
     <div class="card mt-3">
-        <div class="card-header"> Suppliers</div>
+        <div class="card-header">Suppliers List</div>
         <div class="card-body">
             <table id="supplierTable" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>
-                            Supplier Name
+                            @Html.DisplayNameFor(model => model.Supplier.SupplierId)
+
                         </th>
                         <th>
-                            Supplier ID
+                            @Html.DisplayNameFor(model => model.Supplier.Name)
                         </th>
 
                     </tr>
@@ -73,15 +75,14 @@
                 <tbody>
                     @foreach (var item in Model.SuppliersList)
                     {
-                        <tr onclick="passSupplierId('@item.SupplierId')">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SupplierId)
-                            </td>
-
-                        </tr>
+                    <tr onclick="passSupplierId('@item.SupplierId')">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SupplierId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -109,7 +110,7 @@
     <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
 
     <div class="mt-2 row d-flex justify-content-center">
-        <input type="submit" class="btn btn-primary  " value="Create a New Purchase" />
+        <input type="submit" class="btn btn-dark  " value="Create a New Purchase" />
     </div>
 </form>
 

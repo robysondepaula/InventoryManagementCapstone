@@ -4,75 +4,83 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Transaction</h1>
 
 <p>
-    <a asp-action="CreatePurchase" class="btn btn-light">Create New</a>
+    <a asp-action="CreatePurchase" class="btn btn-light">Create a New Purchase </a>
 </p>
-<table id="myTable" class="table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SupplierId)
-            </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
+<div class="card mt-3">
+    <div class="card-header font-weight-bolder d-flex justify-content-center "> Transaction Table</div>
+    <div class="card-body">
+        <table id="myTable" class="table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TransactionType.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Supplier.Name)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.Name)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TransactionId" class="text-info">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.TransactionId" class="text-success">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.TransactionId" class="text-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 @section Scripts {
 
     <script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
     </script>
 }

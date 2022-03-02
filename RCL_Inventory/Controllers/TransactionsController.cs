@@ -22,7 +22,8 @@ namespace RCL_Inventory.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            var inventoryContext = _context.Transaction.Include(t => t.Product).Include(t => t.TransactionType);
+            var inventoryContext = _context.Transaction.Include(t => t.Product).Include(t => t.TransactionType).Include(t=>t.Supplier);
+
             return View(await inventoryContext.ToListAsync());
         }
 
@@ -36,6 +37,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                .Include(t=>t.Supplier)
                 .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)
@@ -74,31 +76,6 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-
-        
-        //[HttpPost]
-        //public IActionResult CreatePurchase(Transaction transaction)
-        //{
-        //    var products = _context.Products.Include(t => t.Category).ToList(); ;
-
-        //    //Transaction transactionBuilder = new Transaction()
-        //    //{
-        //    //    ProductId = 1,
-        //    //    CategoryId =1,
-        //    //    Quantity = 1,
-        //    //    TransactionTypeId = 1
-
-        //    //};
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Transaction.Add(transaction);
-        //    return RedirectToAction("Index");
-        //    }
-             
-        //    return View(transaction);
-        //}
-
-
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -110,9 +87,6 @@ namespace RCL_Inventory.Controllers
             var productContext = _context.Products.Find(productId);
 
             int categoryInt = productContext.CategoryId;
-
-
-           // PurchaseProductViewModels trans = new PurchaseProductViewModels();
 
             Transaction transactionContext = new Transaction()
             {
@@ -136,92 +110,24 @@ namespace RCL_Inventory.Controllers
             return View(transaction);
         }
 
-
-
-
-        // GET: Transactions/Delete/5
-        public async Task<IActionResult> PurchaseProduct(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transaction
-                .Include(t => t.Product)
-                .Include(t => t.TransactionType)
-                .FirstOrDefaultAsync(m => m.TransactionId == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return View(transaction);
-        }
-
-        //PurchaseProduct
-
-        //public async Task<IActionResult> Create([Bind("TransactionId,Date,CategoryId,ProductId,TransactionTypeId")] Transaction transaction)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(transaction);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
-        //    ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
-        //    return View(transaction);
-        //}
-
-
-
-
-        //public IActionResult CategoryRefresh(int categoryId)
-        //{
-        //    var productList = new List<Product>();
-
-
-
-        //    return View();
-        //}
-
-
-
-        // POST: Transactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,Date,CategoryId,ProductId,Quantity,TransactionTypeId")] Transaction transaction)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(transaction);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
-            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
-            return View(transaction);
-        }
-
         // GET: Transactions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var products = _context.Products.Include(t => t.Category).ToList(); ;
+            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
 
-            var transaction = await _context.Transaction.FindAsync(id);
-            if (transaction == null)
+            var transaction = _context.Transaction.Find(id);
+
+
+            int transactionId = transaction.TransactionId;
+            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
             {
-                return NotFound();
-            }
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
-            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
-            return View(transaction);
+                ProductsList = products,
+                SuppliersList = suppliers,
+                TransactionId = transactionId
+            };
+            return View(ppvw);
+           
         }
 
         // POST: Transactions/Edit/5
@@ -229,18 +135,32 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,Date,CategoryId,ProductId,Quantity,TransactionTypeId")] Transaction transaction)
+        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
         {
-            if (id != transaction.TransactionId)
+   
+            var productId = transaction.ProductId;
+
+            var productContext = _context.Products.Find(productId);
+
+            int categoryInt = productContext.CategoryId;
+
+            Transaction transactionContext = new Transaction()
             {
-                return NotFound();
-            }
+                Date = transaction.Date,
+                CategoryId = categoryInt,
+                ProductId = transaction.ProductId,
+                Quantity = transaction.Quantity,
+                TransactionTypeId = transaction.TransactionTypeId,
+                SupplierId = transaction.SupplierId,
+                TransactionId = id
+                
+            };
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(transaction);
+                    _context.Update(transactionContext);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -271,6 +191,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                .Include(t=>t.Supplier)
                 .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)

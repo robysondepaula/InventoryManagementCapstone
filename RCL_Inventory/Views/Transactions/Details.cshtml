@@ -4,38 +4,97 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="font-weight-bolder">Transaction Purchase Details</h1>
 
 <div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionType.Name)
-        </dd>
-    </dl>
+    <div class="card mt-3">
+        <div class="card-header font-weight-bolder d-flex justify-content-center pr-5"> Transaction Type</div>
+        <div class="card-body d-flex justify-content-center pl-5">
+            <h5 class="col-sm-2">
+                @Html.DisplayFor(model => model.TransactionType.Name)
+            </h5>
+        </div>
+    </div>
 </div>
+
+
+<div class="card mt-3">
+    <div class="card-header font-weight-bolder"> Transaction Information</div>
+    <div class="card-body">
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <label>
+                    @Html.DisplayNameFor(model => model.Date)
+                </label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Date)" />
+            </div>
+
+            <div class="form-group col-md">
+                <label>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Quantity)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header font-weight-bolder"> Product Information</div>
+    <div class="card-body">
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <label>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.CategoryId)" />
+            </div>
+
+            <div class="form-group col-md">
+                <label>
+                    @Html.DisplayNameFor(model => model.Product.Name)
+                </label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Product.Name)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header font-weight-bolder"> Supplier Information</div>
+    <div class="card-body">
+
+        
+        <div class="card-body row">
+            <div class="col-md">
+
+                <div class="form-group col-md">
+                    <label>@Html.DisplayNameFor(model => model.Supplier.SupplierId)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.SupplierId)" />
+                </div>
+                <div class="form-group col-md">
+                    <label>@Html.DisplayNameFor(model => model.Supplier.Telephone) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Supplier.Telephone)" />
+                </div>
+
+            </div>
+            
+            <div class="col-md">
+                <div class="form-group col-md">
+                    <label>@Html.DisplayNameFor(model => model.Supplier.Name)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Supplier.Name)" />
+                </div>
+   
+
+                <div class="form-group col-md">
+                    <label> @Html.DisplayNameFor(model => model.Supplier.AccountNumber) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Supplier.AccountNumber)" />
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.TransactionId">Edit</a> |
     <a asp-action="Index">Back to List</a>

@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RCL_Inventory.Models;
 
-namespace RCL_Inventory.Controllers
+namespace RCL_Inventory.Models
 {
     public class UsersController : Controller
     {
@@ -21,7 +20,8 @@ namespace RCL_Inventory.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var inventoryContext = _context.Users.Include(u => u.Address);
+            return View(await inventoryContext.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -33,6 +33,7 @@ namespace RCL_Inventory.Controllers
             }
 
             var user = await _context.Users
+                .Include(u => u.Address)
                 .FirstOrDefaultAsync(m => m.LoginID == id);
             if (user == null)
             {
@@ -45,6 +46,7 @@ namespace RCL_Inventory.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City");
             return View();
         }
 
@@ -53,7 +55,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LoginID,Username,Password,Role")] User user)
+        public async Task<IActionResult> Create([Bind("LoginID,Username,Password,RoleId,AddressId")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +63,7 @@ namespace RCL_Inventory.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", user.AddressId);
             return View(user);
         }
 
@@ -77,6 +80,7 @@ namespace RCL_Inventory.Controllers
             {
                 return NotFound();
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", user.AddressId);
             return View(user);
         }
 
@@ -85,7 +89,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LoginID,Username,Password,Role")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("LoginID,Username,Password,RoleId,AddressId")] User user)
         {
             if (id != user.LoginID)
             {
@@ -112,6 +116,7 @@ namespace RCL_Inventory.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", user.AddressId);
             return View(user);
         }
 
@@ -124,6 +129,7 @@ namespace RCL_Inventory.Controllers
             }
 
             var user = await _context.Users
+                .Include(u => u.Address)
                 .FirstOrDefaultAsync(m => m.LoginID == id);
             if (user == null)
             {

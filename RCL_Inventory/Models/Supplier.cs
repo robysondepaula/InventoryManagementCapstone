@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace RCL_Inventory.Models
 {
@@ -10,21 +11,26 @@ namespace RCL_Inventory.Models
     {
 
         [Key]
+        [DisplayName("Supplier")]
         public int SupplierId { get; set; }
 
         [Required(ErrorMessage = "Please, need to write Supplier Name.")]
+        [DisplayName("Supplier Name")]
         public string Name { get; set; }
 
 
         [Required]
         [Range(0000000000, 9999999999, ErrorMessage = "Please, write a number of 9 digits.")]
+        [DisplayName("Supplier Telephone")]
         public string Telephone { get; set; }
 
         [Required]
         [Range(0000000000, 9999999999, ErrorMessage = "Please, write a number of 9 digits.")]
+        [DisplayName("Supplier Account")]
         public string AccountNumber { get; set; }
 
         [Required]
+        [DisplayName("Address ID")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
 

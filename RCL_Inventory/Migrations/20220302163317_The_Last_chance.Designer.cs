@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RCL_Inventory.Models;
 
 namespace RCL_Inventory.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20220302163317_The_Last_chance")]
+    partial class The_Last_chance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,24 +140,6 @@ namespace RCL_Inventory.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RCL_Inventory.Models.Roler", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roler");
-                });
-
             modelBuilder.Entity("RCL_Inventory.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
@@ -268,11 +252,9 @@ namespace RCL_Inventory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RolerRoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -281,8 +263,6 @@ namespace RCL_Inventory.Migrations
                     b.HasKey("LoginID");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("RolerRoleId");
 
                     b.ToTable("Users");
                 });
@@ -344,13 +324,7 @@ namespace RCL_Inventory.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RCL_Inventory.Models.Roler", "Roler")
-                        .WithMany()
-                        .HasForeignKey("RolerRoleId");
-
                     b.Navigation("Address");
-
-                    b.Navigation("Roler");
                 });
 #pragma warning restore 612, 618
         }

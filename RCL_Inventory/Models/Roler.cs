@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace RCL_Inventory.Models
 {
-    public class Category
+    public class Roler
     {
         [Key]
-        [DisplayName("Category ID")]
-        public int CategoryId { get; set; }
-        [Required(ErrorMessage = "Please enter the Category Name.")]
-        [DisplayName("Category Name")]
+
+        [DisplayName("Role ID")]
+        public int RoleId { get; set; }
+
+        [DisplayName("Name")]
         public string Name { get; set; }
 
+        [DisplayName("Description")]
+        public string Description { get; set; }
 
     }
 }
