@@ -17,10 +17,8 @@ namespace RCL_Inventory.Models
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
-
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }
         
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,28 +34,28 @@ namespace RCL_Inventory.Models
            );
 
             modelBuilder.Entity<Product>().HasData(           
-                new Product { ProductId = 1, Name = "LG OLED TV", Description = "55 inch 4K OLED Smart TV", CategoryId = 2, SupplierId = 2},
-                new Product { ProductId = 2, Name = "Samsung QLED TV", Description = "75 inch 8K QLED Smart TV", CategoryId = 2, SupplierId = 1 },
-                new Product { ProductId = 3, Name = "Samsung Smart TV", Description = "65 inch 4K Smart TV", CategoryId = 2, SupplierId = 1 },
-                new Product { ProductId = 4, Name = "Sony X80J TV", Description = "75 inch 4K HDR LED Smart TV", CategoryId = 2, SupplierId = 3 },
-                new Product { ProductId = 5, Name = "Samsung Galaxy S22", Description = "6.1 inch display, 1080x2340 pixels, 50MP Camera, 8GB RAM, 250GB, Android 12", CategoryId = 1, SupplierId = 1 },
-                new Product { ProductId = 6, Name = "Samsung Galaxy S21", Description = "6.4 inch display, 1080x2400 pixels, 12MP Camera, 8GB RAM, 500GB, Android 12", CategoryId = 1, SupplierId = 1 },
-                new Product { ProductId = 7, Name = "Iphone 13 Pro Max", Description = "6.7 inch display, 1284x2778 pixels, 12MP Camera, 6GB RAM, 512GB, iOS 15", CategoryId = 1, SupplierId = 4 },
-                new Product { ProductId = 8, Name = "Iphone 13", Description = "6.1 inch display, 1170x2532 pixels, 12MP Camera, 4GB RAM, 128GB, iOS 15", CategoryId = 1, SupplierId = 4 },
-                new Product { ProductId = 9, Name = "Xiaomi Redmi Note 11", Description = "6.43 inch display, 1080x2400 pixels, 50MP Camera, 6GB RAM, 256GB, Android 11", CategoryId = 1, SupplierId = 5 },
-                new Product { ProductId = 10, Name = "MSI Laptop", Description = "CPU Intel i7-7700M, 16GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3060RTX, 17.3 inch display", CategoryId = 3, SupplierId = 6 },
-                new Product { ProductId = 11, Name = "Apple MacBook Pro", Description = "8-Core CPU, 16GB RAM, 250GB SSD, 500GB HD, GPU 14-core, 14 inch display", CategoryId = 3, SupplierId = 4 },
-                new Product { ProductId = 12, Name = "Alienware Laptop", Description = "CPU Intel i9-9500M, 32GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3090RTX, 17.3 inch display", CategoryId = 3, SupplierId = 7 },
-                new Product { ProductId = 13, Name = "Apple MacBook Pro", Description = "8-Core CPU, 32GB RAM, 500GB SSD, 1TB HD, GPU 14-core, 16 inch display", CategoryId = 3, SupplierId = 4 },
-                new Product { ProductId = 14, Name = "Xbox Series X", Description = "Xbox Series X gaming console, with 2 wireless controllers", CategoryId = 4, SupplierId = 8 },
-                new Product { ProductId = 15, Name = "PlayStation 5", Description = "PlayStation 5 gaming console, with 1 wireless controller", CategoryId = 4, SupplierId = 3 },
-                new Product { ProductId = 16, Name = "Apple Ipad", Description = "Ipad 10.2 display, 6GB RAM, 500GB, 12MP Camera, iOS 15", CategoryId = 5, SupplierId = 4 },
-                new Product { ProductId = 17, Name = "Samsung Galaxy Tab A7", Description = "8.7 inch display, 32GB, Android 12", CategoryId = 5, SupplierId = 1 },
-                new Product { ProductId = 18, Name = "LG Microwave NeoChef", Description = "1.5cu, Countertop Microwave with Smart Inverter and EasyClean", CategoryId = 6, SupplierId = 2 },
-                new Product { ProductId = 19, Name = "LG Microwave OTR", Description = "1.7cu, Over-the-Range Microwave Oven with EasyClean", CategoryId = 6, SupplierId = 2 },
-                new Product { ProductId = 20, Name = "Insignia Air Fryer", Description = "4.8L capacity, Stainless Steel, Hot air, 60 minutes timer", CategoryId = 6, SupplierId = 9 },
-                new Product { ProductId = 21, Name = "Hamilton Beach Toaster", Description = "2-Slice toaster in chrome, high-lift boost toast function, Extra-wide slots", CategoryId = 6, SupplierId = 10 },
-                new Product { ProductId = 22, Name = "Nespresso Vertuo Coffee", Description = "Nespresso Vertuo Coffee & Espresso Machine by DeLonghi w/ Aeroccino Milk Frother, Black", CategoryId = 6, SupplierId = 11 }
+                new Product { ProductId = 1, Name = "LG OLED TV", Description = "55 inch 4K OLED Smart TV", CategoryId = 2 },
+                new Product { ProductId = 2, Name = "Samsung QLED TV", Description = "75 inch 8K QLED Smart TV", CategoryId = 2  },
+                new Product { ProductId = 3, Name = "Samsung Smart TV", Description = "65 inch 4K Smart TV", CategoryId = 2  },
+                new Product { ProductId = 4, Name = "Sony X80J TV", Description = "75 inch 4K HDR LED Smart TV", CategoryId = 2  },
+                new Product { ProductId = 5, Name = "Samsung Galaxy S22", Description = "6.1 inch display, 1080x2340 pixels, 50MP Camera, 8GB RAM, 250GB, Android 12", CategoryId = 1  },
+                new Product { ProductId = 6, Name = "Samsung Galaxy S21", Description = "6.4 inch display, 1080x2400 pixels, 12MP Camera, 8GB RAM, 500GB, Android 12", CategoryId = 1 },
+                new Product { ProductId = 7, Name = "Iphone 13 Pro Max", Description = "6.7 inch display, 1284x2778 pixels, 12MP Camera, 6GB RAM, 512GB, iOS 15", CategoryId = 1 },
+                new Product { ProductId = 8, Name = "Iphone 13", Description = "6.1 inch display, 1170x2532 pixels, 12MP Camera, 4GB RAM, 128GB, iOS 15", CategoryId = 1 },
+                new Product { ProductId = 9, Name = "Xiaomi Redmi Note 11", Description = "6.43 inch display, 1080x2400 pixels, 50MP Camera, 6GB RAM, 256GB, Android 11", CategoryId = 1 },
+                new Product { ProductId = 10, Name = "MSI Laptop", Description = "CPU Intel i7-7700M, 16GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3060RTX, 17.3 inch display", CategoryId = 3 },
+                new Product { ProductId = 11, Name = "Apple MacBook Pro", Description = "8-Core CPU, 16GB RAM, 250GB SSD, 500GB HD, GPU 14-core, 14 inch display", CategoryId = 3},
+                new Product { ProductId = 12, Name = "Alienware Laptop", Description = "CPU Intel i9-9500M, 32GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3090RTX, 17.3 inch display", CategoryId = 3 },
+                new Product { ProductId = 13, Name = "Apple MacBook Pro", Description = "8-Core CPU, 32GB RAM, 500GB SSD, 1TB HD, GPU 14-core, 16 inch display", CategoryId = 3 },
+                new Product { ProductId = 14, Name = "Xbox Series X", Description = "Xbox Series X gaming console, with 2 wireless controllers", CategoryId = 4 },
+                new Product { ProductId = 15, Name = "PlayStation 5", Description = "PlayStation 5 gaming console, with 1 wireless controller", CategoryId = 4 },
+                new Product { ProductId = 16, Name = "Apple Ipad", Description = "Ipad 10.2 display, 6GB RAM, 500GB, 12MP Camera, iOS 15", CategoryId = 5 },
+                new Product { ProductId = 17, Name = "Samsung Galaxy Tab A7", Description = "8.7 inch display, 32GB, Android 12", CategoryId = 5 },
+                new Product { ProductId = 18, Name = "LG Microwave NeoChef", Description = "1.5cu, Countertop Microwave with Smart Inverter and EasyClean", CategoryId = 6 },
+                new Product { ProductId = 19, Name = "LG Microwave OTR", Description = "1.7cu, Over-the-Range Microwave Oven with EasyClean", CategoryId = 6 },
+                new Product { ProductId = 20, Name = "Insignia Air Fryer", Description = "4.8L capacity, Stainless Steel, Hot air, 60 minutes timer", CategoryId = 6 },
+                new Product { ProductId = 21, Name = "Hamilton Beach Toaster", Description = "2-Slice toaster in chrome, high-lift boost toast function, Extra-wide slots", CategoryId = 6 },
+                new Product { ProductId = 22, Name = "Nespresso Vertuo Coffee", Description = "Nespresso Vertuo Coffee & Espresso Machine by DeLonghi w/ Aeroccino Milk Frother, Black", CategoryId = 6 }
                 );
 
             modelBuilder.Entity<Supplier>().HasData(
