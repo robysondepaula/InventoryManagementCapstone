@@ -22,7 +22,9 @@ namespace RCL_Inventory.Models
 
         [Required(ErrorMessage = "Please choose the Category Name.")]
         [DisplayName("Category ID")]
-        public int CategoryId { get; set; }
+        public int CategoryId { get; set; }      
+        public int? SupplierId { get; set; }
         public Category Category { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }

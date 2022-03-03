@@ -14,18 +14,17 @@ namespace RCL_Inventory.Models
         [DisplayName("Supplier")]
         public int SupplierId { get; set; }
 
-        [Required(ErrorMessage = "Please, need to write Supplier Name.")]
+        [Required(ErrorMessage = "Please, Supplier Name is required.")]
         [DisplayName("Supplier Name")]
         public string Name { get; set; }
 
-
         [Required]
-        [Range(0000000000, 9999999999, ErrorMessage = "Please, write a number of 9 digits.")]
+        [Range(0000000000, 9999999999, ErrorMessage = "Please, write a number of 10 digits.")]
         [DisplayName("Supplier Telephone")]
         public string Telephone { get; set; }
 
         [Required]
-        [Range(0000000000, 9999999999, ErrorMessage = "Please, write a number of 9 digits.")]
+        [Range(000000000, 999999999, ErrorMessage = "Please, write a number of 9 digits.")]
         [DisplayName("Supplier Account")]
         public string AccountNumber { get; set; }
 

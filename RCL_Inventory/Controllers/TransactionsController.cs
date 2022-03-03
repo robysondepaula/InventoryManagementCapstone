@@ -113,14 +113,13 @@ namespace RCL_Inventory.Controllers
         // GET: Transactions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var products = _context.Products.Include(t => t.Category).ToList(); ;
-            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
-
-            var transaction = _context.Transaction.Find(id);
+            var products = await _context.Products.Include(t => t.Category).ToListAsync();
+            var suppliers = await _context.Suppliers.Include(t => t.Address).ToListAsync();
+            var transaction = await _context.Transaction.FindAsync(id);
 
 
             int transactionId = transaction.TransactionId;
-            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+            var ppvw = new PurchaseProductViewModels()
             {
                 ProductsList = products,
                 SuppliersList = suppliers,

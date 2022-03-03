@@ -16,6 +16,5 @@ namespace RCL_Inventory.Models.ViewModels.ViewModelProduct
         public List<Product> Products {get;set;}
 
 
-
     }
 }

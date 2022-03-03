@@ -14,20 +14,20 @@ namespace RCL_Inventory.Models
         [DisplayName("Address ID")]
         public int AddressId { get; set; }
         [Required(ErrorMessage = "Please, need to write Country Name.")]
-        [DisplayName("Address Country")]
+        [DisplayName("Country")]
         public string Country { get; set; }
         [Required(ErrorMessage = "Please, need to write City Name.")]
-        [DisplayName("Address City")]
+        [DisplayName("City")]
         public string City { get; set; }
         [Required(ErrorMessage = "Please, need to write Province Name.")]
-        [DisplayName("Address Province")]
+        [DisplayName("Province")]
         public string Province { get; set; }
         [Required(ErrorMessage = "Please, need to write Postal Code.")]
-        [DisplayName("Address Postal")]
+        [DisplayName("Postal Code")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Please, need to write Street Name.")]
-        [DisplayName("Address Street")]
+        [DisplayName("Street")]
         public string Street { get; set; }
 
 
