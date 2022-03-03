@@ -25,10 +25,6 @@ namespace RCL_Inventory.Controllers
             return View(await inventoryContext.ToListAsync());
         }
 
-
-
-
-
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,7 +56,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Description,CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +90,7 @@ namespace RCL_Inventory.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
         {
             if (id != product.ProductId)
             {

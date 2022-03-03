@@ -20,9 +20,16 @@ namespace RCL_Inventory.Models
         [DisplayName("Product Description")]
         public string Description { get; set; }
 
+        //.....
+        [Required(ErrorMessage = "Please insert the Brand of the product.")]
+        [DisplayName("Product Brand")]
+        public string Brand { get; set; }
+        //.....
+
         [Required(ErrorMessage = "Please choose the Category Name.")]
         [DisplayName("Category ID")]
-        public int CategoryId { get; set; }      
+        public int CategoryId { get; set; }    
+        
         public Category Category { get; set; }
     }
 }
