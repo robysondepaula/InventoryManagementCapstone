@@ -1,4 +1,4 @@
-﻿@model RCL_Inventory.Models.Product
+﻿@model ProductViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -8,46 +8,101 @@
 
 <h4>Product</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
-                <span asp-validation-for="Brand" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div hidden class="form-group">
+        <input id="CategoryId" asp-for="Product.CategoryId" class="form-control" />
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-center">Category List</div>
+        <div class="card-body">
+            <table id="CategoryTable" class="table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.CategoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CategoriesList)
+                    {
+                        <tr onclick="passCategoryId('@item.CategoryId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-3 ">
+        <div class="card-header bg-dark text-white d-flex justify-content-center"> Product Information</div>
+        <div class="card-body row">
+
+            <div class="form-group col-md">
+                <label asp-for="Product.Name" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="Product.Brand" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="Product.Brand" class="form-control" />
+                <span asp-validation-for="Product.Brand" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-md">
+            <label asp-for="Product.Description" class="control-label d-flex justify-content-center"></label>
+            <input asp-for="Product.Description" class="form-control" />
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="mt-2 d-flex justify-content-center">
+        <div class="form-group mr-2">
+            <input type="submit" value="Create" class="btn btn-primary m-2 d-flex justify-content-center" />
+        </div>
+        <div class="ml-2 btn btn-light" >
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</form>
+
+
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var CategoryTable = $('#CategoryTable').DataTable();
+
+            $('#CategoryTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    CategoryTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passCategoryId(CategoryId) {
+            document.getElementById('CategoryId').value = CategoryId;
+            console.log(CategoryId);
+        }
+
+    </script>
 }

@@ -24,12 +24,12 @@ namespace RCL_Inventory.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Category>().HasData(
-                new Category { CategoryId = 1, Name = "Cellphone" },
-                new Category { CategoryId = 2, Name = "TV" },
-                new Category { CategoryId = 3, Name = "Laptop"},
-                new Category { CategoryId = 4, Name = "Gaming Console" },
-                new Category { CategoryId = 5, Name = "Tablet" },
-                new Category { CategoryId = 6, Name = "Home Appliances" }
+                new Category { CategoryId = 1, Name = "Cellphone",Description="Cellphones" },
+                new Category { CategoryId = 2, Name = "TV", Description = "Television" },
+                new Category { CategoryId = 3, Name = "Laptop", Description = "Portatil Computer" },
+                new Category { CategoryId = 4, Name = "Gaming Console", Description = "PlayStation, Xbox or Wii console" },
+                new Category { CategoryId = 5, Name = "Tablet", Description = "Ipad, Galaxy note and others." },
+                new Category { CategoryId = 6, Name = "Home Appliances", Description = "Echo Dot, Google Cast, Alexia Fire, and others." }
            );
 
             modelBuilder.Entity<Product>().HasData(           

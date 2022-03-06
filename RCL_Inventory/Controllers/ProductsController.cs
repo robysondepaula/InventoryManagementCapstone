@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RCL_Inventory.Models;
+using RCL_Inventory.Models.ViewModels.ViewModelProduct;
 
 namespace RCL_Inventory.Controllers
 {
@@ -47,8 +48,15 @@ namespace RCL_Inventory.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            return View();
+            var categories = _context.Categories.ToList();
+
+
+
+             ProductViewModel ppvw = new ProductViewModel()
+            {
+                CategoriesList = categories
+            };
+            return View(ppvw);
         }
 
         // POST: Products/Create
@@ -58,6 +66,7 @@ namespace RCL_Inventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -77,12 +86,21 @@ namespace RCL_Inventory.Controllers
             }
 
             var product = await _context.Products.FindAsync(id);
+
+            int productId = product.ProductId;
+            ProductViewModel pvm = new ProductViewModel()
+            {
+                CategoriesList = _context.Categories.ToList(),
+                ProductId = productId
+            };
+
+
             if (product == null)
             {
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", product.CategoryId);
-            return View(product);
+            return View(pvm);
         }
 
         // POST: Products/Edit/5
@@ -92,16 +110,28 @@ namespace RCL_Inventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
         {
-            if (id != product.ProductId)
+
+            Product pvm = new Product()
             {
-                return NotFound();
-            }
+                ProductId = id,
+                CategoryId = product.CategoryId,
+                Name = product.Name,
+                Brand = product.Brand,
+                Description = product.Description
+            };
+
+
+
+            //if (id != product.ProductId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(pvm);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

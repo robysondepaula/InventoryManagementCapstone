@@ -8,7 +8,6 @@
 
 <h4>Transaction</h4>
 <hr />
-<input value="@Model.TransactionId"/>
 
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -25,7 +24,7 @@
     </div>
     <!--Product Table-->
     <div class="card">
-        <div class="card-header"> Products</div>
+        <div class="card-header bg-dark text-white d-flex justify-content-center">Products Information</div>
         <div class="card-body">
             <table id="productTable" class="display" style="width:100%">
                 <thead>
@@ -60,7 +59,7 @@
 
     <!--Product Table-->
     <div class="card mt-3">
-        <div class="card-header"> Suppliers</div>
+        <div class="card-header bg-dark text-white d-flex justify-content-center">Suppliers Information</div>
         <div class="card-body">
             <table id="supplierTable" class="display" style="width:100%">
                 <thead>
@@ -94,17 +93,17 @@
 
 
     <div class="card mt-3 ">
-        <div class="card-header"> Transaction Detail</div>
+        <div class="card-header bg-dark text-white d-flex justify-content-center"> Transaction Information</div>
         <div class="card-body row">
             <div class="form-group col-md">
                 <div class="form-group">
-                    <label asp-for="Transaction.Date" class="control-label"></label>
+                    <label asp-for="Transaction.Date" class="control-label d-flex justify-content-center"></label>
                     <input asp-for="Transaction.Date" class="form-control" />
                     <span asp-validation-for="Transaction.Date" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group col-md">
-                <label asp-for="@Model.Transaction.Quantity" class="control-label"></label>
+                <label asp-for="@Model.Transaction.Quantity" class="control-label d-flex justify-content-center"></label>
                 <input asp-for="@Model.Transaction.Quantity" class="form-control" />
             </div>
         </div>
@@ -112,14 +111,15 @@
 
     <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
 
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
+    <div class="mt-2 d-flex justify-content-center">
+        <div class="mr-2">
+            <input type="submit" value="Save" class="btn btn-primary " />
+        </div>
+            <a  class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     <script>

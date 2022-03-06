@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RCL_Inventory.Models;
+using RCL_Inventory.Models.ViewModels.SupplierViewModel;
 
 namespace RCL_Inventory.Controllers
 {
@@ -47,8 +48,17 @@ namespace RCL_Inventory.Controllers
         // GET: Suppliers/Create
         public IActionResult Create()
         {
+            var suppliers = _context.Suppliers.ToList();
+            var addresses = _context.Addresses.ToList();
+
+            SupplierViewModel svm = new SupplierViewModel(){
+            SuppliersList = suppliers,
+            AddressesList = addresses
+            };
+
+
             ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City");
-            return View();
+            return View(svm);
         }
 
         // POST: Suppliers/Create
@@ -76,13 +86,28 @@ namespace RCL_Inventory.Controllers
                 return NotFound();
             }
 
+            var suppliers = _context.Suppliers.ToList();
+            var addresses = _context.Addresses.ToList();
+
+
             var supplier = await _context.Suppliers.FindAsync(id);
-            if (supplier == null)
+            int supplierId = supplier.SupplierId;
+
+            var svm = new SupplierViewModel()
+            {
+                AddressesList = addresses,
+                SuppliersList = suppliers,
+                SupplierId = supplierId
+
+            };
+
+
+            if (svm == null)
             {
                 return NotFound();
             }
             ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
-            return View(supplier);
+            return View(svm);
         }
 
         // POST: Suppliers/Edit/5
@@ -92,21 +117,25 @@ namespace RCL_Inventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
         {
-            if (id != supplier.SupplierId)
-            {
-                return NotFound();
-            }
+            Supplier supplierContext = new Supplier() {
+                SupplierId = id,
+                Name = supplier.Name,
+                Telephone = supplier.Telephone,
+                AccountNumber = supplier.AccountNumber,
+                AddressId = supplier.AddressId
+            };
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(supplier);
+                    _context.Update(supplierContext);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierId))
+                    if (!SupplierExists(supplierContext.SupplierId))
                     {
                         return NotFound();
                     }

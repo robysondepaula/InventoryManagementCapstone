@@ -1,4 +1,4 @@
-﻿@model RCL_Inventory.Models.Supplier
+﻿@model SupplierViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,42 +8,128 @@
 
 <h4>Supplier</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="SupplierId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telephone" class="control-label"></label>
-                <input asp-for="Telephone" class="form-control" />
-                <span asp-validation-for="Telephone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AccountNumber" class="control-label"></label>
-                <input asp-for="AccountNumber" class="form-control" />
-                <span asp-validation-for="AccountNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AddressId" class="control-label"></label>
-                <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
-                <span asp-validation-for="AddressId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" id="SupplierId" asp-for="SupplierId" />
+
+
+    <div hidden class="form-group">
+        <input id="AddressId" asp-for="Supplier.AddressId" class="form-control" />
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-center">Addresses List</div>
+        <div class="card-body">
+            <table id="addressTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.Country)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.Province)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.City)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.PostalCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address.Street)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AddressesList)
+                    {
+                        <tr onclick="passAddressId('@item.AddressId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Country)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Province)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostalCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Street)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Supplier Information</div>
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <label asp-for="Supplier.Name" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="Supplier.Name" class="form-control" />
+                <span asp-validation-for="Supplier.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md">
+                <label asp-for="@Model.Supplier.Telephone" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="@Model.Supplier.Telephone" class="form-control" />
+                <span asp-validation-for="Supplier.Telephone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md">
+                <label asp-for="@Model.Supplier.AccountNumber" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="@Model.Supplier.AccountNumber" class="form-control" />
+                <span asp-validation-for="Supplier.AccountNumber" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 d-flex justify-content-center">
+        <div class="form-group">
+            <input type="submit" value="Save" class="mr-2 btn btn-primary" />
+        </div>
+
+        <div>
+            <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</form>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var addressTable = $('#addressTable').DataTable();
+
+            $('#addressTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    addressTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passAddressId(AddressId) {
+            document.getElementById('AddressId').value = AddressId;
+            console.log(AddressId);
+        }
+
+    </script>
+
+
+
 }

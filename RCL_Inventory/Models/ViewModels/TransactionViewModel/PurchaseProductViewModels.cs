@@ -22,5 +22,9 @@ namespace RCL_Inventory.Models.ViewModels
         public Supplier Supplier { get; set; }
         public List<Supplier> SuppliersList {get;set;}
 
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public List<Category> CategoriesList { get; set; }
+
     }
 }

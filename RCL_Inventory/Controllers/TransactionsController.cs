@@ -22,7 +22,10 @@ namespace RCL_Inventory.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            var inventoryContext = _context.Transaction.Include(t => t.Product).Include(t => t.TransactionType).Include(t=>t.Supplier);
+            var inventoryContext = _context.Transaction.Include(t => t.Product)
+                .Include(t => t.Product.Category)
+                .Include(t => t.TransactionType)
+                .Include(t=>t.Supplier);
 
             return View(await inventoryContext.ToListAsync());
         }
@@ -37,6 +40,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                 .Include(t => t.Product.Category)
                 .Include(t=>t.Supplier)
                 .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
@@ -65,13 +69,16 @@ namespace RCL_Inventory.Controllers
         {
             var products = _context.Products.Include(t => t.Category).ToList(); ;
             var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
+            var categories = _context.Categories.ToList();
 
 
 
             PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
             {
                 ProductsList = products,
-                SuppliersList = suppliers
+                SuppliersList = suppliers,
+                CategoriesList = categories
+
             };
             return View(ppvw);
         }
@@ -88,6 +95,7 @@ namespace RCL_Inventory.Controllers
 
             int categoryInt = productContext.CategoryId;
 
+
             Transaction transactionContext = new Transaction()
             {
                 Date = transaction.Date,
@@ -100,7 +108,7 @@ namespace RCL_Inventory.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(transactionContext);
+                _context.Add(transaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -164,7 +172,7 @@ namespace RCL_Inventory.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TransactionExists(transaction.TransactionId))
+                    if (!TransactionExists(transactionContext.TransactionId))
                     {
                         return NotFound();
                     }
@@ -190,6 +198,7 @@ namespace RCL_Inventory.Controllers
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
+                .Include(t => t.Product.Category)
                 .Include(t=>t.Supplier)
                 .Include(t => t.TransactionType)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);

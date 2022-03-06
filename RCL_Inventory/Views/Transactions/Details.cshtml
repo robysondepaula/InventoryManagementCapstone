@@ -8,7 +8,7 @@
 
 <div>
     <div class="card mt-3">
-        <div class="card-header font-weight-bolder d-flex justify-content-center pr-5"> Transaction Type</div>
+        <div class="card-header font-weight-bolder d-flex justify-content-center pr-5 bg-blue text-white"> Transaction Type</div>
         <div class="card-body d-flex justify-content-center pl-5">
             <h5 class="col-sm-2">
                 @Html.DisplayFor(model => model.TransactionType.Name)
@@ -19,7 +19,7 @@
 
 
 <div class="card mt-3">
-    <div class="card-header font-weight-bolder"> Transaction Information</div>
+    <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Transaction Information</div>
     <div class="card-body">
         <div class="card-body row">
             <div class="form-group col-md">
@@ -40,14 +40,14 @@
 </div>
 
 <div class="card mt-3">
-    <div class="card-header font-weight-bolder"> Product Information</div>
+    <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Product Information</div>
     <div class="card-body">
         <div class="card-body row">
             <div class="form-group col-md">
                 <label>
-                    @Html.DisplayNameFor(model => model.CategoryId)
+                    @Html.DisplayNameFor(model => model.Product.Category.Name)
                 </label>
-                <input class="form-control" disabled value="@Html.DisplayFor(model => model.CategoryId)" />
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Product.Category.Name)" />
             </div>
 
             <div class="form-group col-md">
@@ -56,12 +56,25 @@
                 </label>
                 <input class="form-control" disabled value="@Html.DisplayFor(model => model.Product.Name)" />
             </div>
+            <div class="form-group col-md">
+                <label>
+                    @Html.DisplayNameFor(model => model.Product.Brand)
+                </label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Product.Brand)" />
+            </div>
         </div>
+        <div class="form-group col-md">
+            <label>
+                @Html.DisplayNameFor(model => model.Product.Description)
+            </label>
+            <input class="form-control" disabled value="@Html.DisplayFor(model => model.Product.Description)" />
+        </div>
+
     </div>
 </div>
 
 <div class="card mt-3">
-    <div class="card-header font-weight-bolder"> Supplier Information</div>
+    <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Supplier Information</div>
     <div class="card-body">
 
         
@@ -95,7 +108,7 @@
         </div>
     </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.TransactionId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mt-2 d-flex justify-content-center">
+    <a class="mr-2 btn btn-primary" asp-action="Edit" asp-route-id="@Model.TransactionId">Edit</a> |
+    <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
 </div>

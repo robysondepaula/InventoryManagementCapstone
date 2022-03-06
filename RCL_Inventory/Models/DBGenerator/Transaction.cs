@@ -14,9 +14,12 @@ namespace RCL_Inventory.Models
         [DisplayName("Transaction ID")]
         public int TransactionId { get; set; }
         [DisplayName("Create Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
         [DisplayName("Category ID")]
         public int CategoryId { get; set; }
+
         [DisplayName("Product ID")]
         public int ProductId { get; set; }
         public Product Product { get; set; }

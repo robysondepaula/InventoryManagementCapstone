@@ -12,7 +12,7 @@
 
 
 <div class="card mt-3">
-    <div class="card-header font-weight-bolder d-flex justify-content-center "> Transaction Table</div>
+    <div class="card-header font-weight-bolder d-flex justify-content-center bg-dark text-white"> Transaction Table</div>
     <div class="card-body">
         <table id="myTable" class="table-hover">
             <thead>
@@ -21,7 +21,7 @@
                         @Html.DisplayNameFor(model => model.Date)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CategoryId)
+                        @Html.DisplayNameFor(model => model.Product.Category.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Product)
@@ -29,7 +29,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Quantity)
                     </th>
-
                     <th>
                         @Html.DisplayNameFor(model => model.TransactionType.Name)
                     </th>
@@ -48,7 +47,7 @@
                             @Html.DisplayFor(modelItem => item.Date)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CategoryId)
+                            @Html.DisplayFor(modelItem => item.Product.Category.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Product.Name)
@@ -64,9 +63,9 @@
                             @Html.DisplayFor(modelItem => item.Supplier.Name)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.TransactionId" class="text-info">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.TransactionId" class="text-success">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.TransactionId" class="text-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.TransactionId" class="text-info"><img src="~/images/edit.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                            <a asp-action="Details" asp-route-id="@item.TransactionId" class="text-success"><img src="~/images/details.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a> |
+                            <a asp-action="Delete" asp-route-id="@item.TransactionId" class="text-danger"><img src="~/images/delete.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a>
                         </td>
                     </tr>
                 }
