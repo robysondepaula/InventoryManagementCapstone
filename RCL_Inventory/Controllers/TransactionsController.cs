@@ -20,15 +20,76 @@ namespace RCL_Inventory.Controllers
         }
 
         // GET: Transactions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var inventoryContext = _context.Transaction.Include(t => t.Product)
-                .Include(t => t.Product.Category)
-                .Include(t => t.TransactionType)
-                .Include(t=>t.Supplier);
+            //int transactionTypeId = 1;
 
-            return View(await inventoryContext.ToListAsync());
+            //if (string.IsNullOrEmpty(id.ToString()))
+            //{
+            //    transactionTypeId = id.Value;
+            //}
+            //else
+            //{
+            //    transactionTypeId = 1;
+            //}
+
+
+
+            var transaction = await _context.Transaction
+                .Include(t => t.Product)
+                 .Include(t => t.Product.Category)
+                .Include(t => t.Supplier)
+                .Include(t => t.TransactionType).ToListAsync();
+
+            var products = _context.Products.Include(t => t.Category).ToList(); ;
+            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
+            var categories = _context.Categories.ToList();
+            var transactions = _context.Transaction.Include(t=>t.TransactionType).ToList();
+
+            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+            {
+                ProductsList = products,
+                SuppliersList = suppliers,
+                CategoriesList = categories,
+                TransactionsList = transactions            
+            };
+
+
+
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
+
+            return View(ppvw);
         }
+
+        //public async Task<IActionResult> IndexSales(int? id)
+        //{
+
+        //    var transaction = await _context.Transaction
+        //        .Include(t => t.Product)
+        //         .Include(t => t.Product.Category)
+        //        .Include(t => t.Supplier)
+        //        .Include(t => t.TransactionType).ToListAsync();
+
+        //    var products = _context.Products.Include(t => t.Category).ToList(); ;
+        //    var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
+        //    var categories = _context.Categories.ToList();
+        //    var transactions = _context.Transaction.Include(t => t.TransactionType).ToList();
+
+        //    PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+        //    {
+        //        ProductsList = products,
+        //        SuppliersList = suppliers,
+        //        CategoriesList = categories,
+        //        TransactionsList = transactions
+        //    };
+
+
+
+        //    ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
+
+        //    return View(ppvw);
+        //}
+
 
         // GET: Transactions/Details/5
         public async Task<IActionResult> Details(int? id)

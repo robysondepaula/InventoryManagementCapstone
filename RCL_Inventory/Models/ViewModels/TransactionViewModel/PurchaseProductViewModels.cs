@@ -26,5 +26,8 @@ namespace RCL_Inventory.Models.ViewModels
         public Category Category { get; set; }
         public List<Category> CategoriesList { get; set; }
 
+        public int TransactionTypeId { get; set; }
+
+
     }
 }
