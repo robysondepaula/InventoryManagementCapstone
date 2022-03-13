@@ -20,20 +20,9 @@ namespace RCL_Inventory.Controllers
         }
 
         // GET: Transactions
-        public async Task<IActionResult> Index(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            //int transactionTypeId = 1;
-
-            //if (string.IsNullOrEmpty(id.ToString()))
-            //{
-            //    transactionTypeId = id.Value;
-            //}
-            //else
-            //{
-            //    transactionTypeId = 1;
-            //}
-
-
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
@@ -51,7 +40,8 @@ namespace RCL_Inventory.Controllers
                 ProductsList = products,
                 SuppliersList = suppliers,
                 CategoriesList = categories,
-                TransactionsList = transactions            
+                TransactionsList = transaction,
+                
             };
 
 
@@ -60,6 +50,39 @@ namespace RCL_Inventory.Controllers
 
             return View(ppvw);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int? id)
+        { 
+
+            var transaction = _context.Transaction
+          .Include(t => t.Product)
+           .Include(t => t.Product.Category)
+          .Include(t => t.Supplier)
+          .Include(t => t.TransactionType).Where(t => t.TransactionTypeId == id.Value).ToList();
+
+            List<Transaction> transactionFilter = new List<Transaction>();
+     
+
+            var products = _context.Products.Include(t => t.Category).ToList();
+            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
+            var categories = _context.Categories.ToList();
+            //var transactions = _context.Transaction.Include(t => t.TransactionType).Where(t => t.TransactionTypeId == id.Value).ToListAsync();
+            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+            {
+                ProductsList = products,
+                SuppliersList = suppliers,
+                CategoriesList = categories,
+                TransactionsList = transaction,
+                TransactionTypeId = id.Value
+            };
+
+
+            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
+
+            return View("Index",ppvw);
+        }
+
 
         //public async Task<IActionResult> IndexSales(int? id)
         //{
