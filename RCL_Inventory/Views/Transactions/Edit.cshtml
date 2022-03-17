@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 class="font-weight-bolder">Edit a Purchase</h1>
+<h1 class="font-weight-bolder">Edit a Transaction</h1>
 
 <h4>Transaction</h4>
 <hr />
@@ -109,13 +109,30 @@
         </div>
     </div>
 
-    <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
+
+ 
+
+
+    @if (Model.TransactionTypeId == 1)
+        {
+            <input hidden asp-for="Transaction.TransactionTypeId" value="1" />
+        }
+
+        else if(Model.TransactionTypeId == 2)
+                {
+            <input hidden asp-for="Transaction.TransactionTypeId" value="2" />
+                }
+
+                else
+                {
+        <input hidden asp-for="Transaction.TransactionTypeId" value="3" />
+                }
 
     <div class="mt-2 d-flex justify-content-center">
         <div class="mr-2">
             <input type="submit" value="Save" class="btn btn-primary " />
         </div>
-            <a  class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
+        <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
     </div>
 </form>
 

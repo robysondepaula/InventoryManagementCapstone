@@ -11,7 +11,7 @@ namespace RCL_Inventory.Models
     {
 
         [Key]
-        [DisplayName("Supplier")]
+        [DisplayName("Supplier ID")]
         public int SupplierId { get; set; }
 
         [Required(ErrorMessage = "Please, Supplier Name is required.")]

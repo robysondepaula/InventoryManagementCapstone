@@ -1,11 +1,25 @@
 ﻿@model PurchaseProductViewModels
 <!--IEnumerable<RCL_Inventory.Models.ViewModels.PurchaseProductViewModels>-->
 
-@{
-    ViewData["Title"] = "CreatePurchase";
+@{if (Model.TransactionTypeId == 1)
+    {
+        ViewData["Title"] = "Create a New Purchase";
+        <h1 class="font-weight-bolder">Create a New Purchase</h1>
+    }
+    else if (Model.TransactionTypeId == 2)
+    {
+        ViewData["Title"] = "Create a New Sale";
+<h1 class="font-weight-bolder">Create a New Sale</h1>
+    }
+    else
+    {
+        ViewData["Title"] = "Create a New Loss";
+<h1 class="font-weight-bolder">Create a New Loss</h1>
+    }
+
 }
 
-<h1 class="font-weight-bolder">Create a New Purchase</h1>
+
 
 <form asp-action="CreatePurchase" method="post">
 
@@ -112,15 +126,44 @@
         </div>
     </div>
 
-    <input type="hidden" asp-for="Transaction.TransactionTypeId" value="1" />
-    <div class="mt-2 row d-flex justify-content-center">
-        <div class="mr-2">
-            <input type="submit" class="btn btn-dark  " value="Create a New Purchase" />
-        </div>
-        <div class="ml-2 btn btn-light">
-            <a asp-action="Index">Back to List</a>
-        </div>
-    </div>
+    @{if (Model.TransactionTypeId == 1)
+        {
+            <div class="mt-2 row d-flex justify-content-center">
+                <div class="mr-2">
+                    <input type="submit" class="btn btn-dark  " value="Create a New Purchase" />
+                </div>
+                <div class="ml-2 btn btn-light">
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        }
+        else if (Model.TransactionTypeId == 2)
+        {
+            <div class="mt-2 row d-flex justify-content-center">
+                <div class="mr-2">
+                    <input type="submit" class="btn btn-dark  " value="Create a New Sale" />
+                </div>
+                <div class="ml-2 btn btn-light">
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="mt-2 row d-flex justify-content-center">
+                <div class="mr-2">
+                    <input type="submit" class="btn btn-dark  " value="Create a New Loss" />
+                </div>
+                <div class="ml-2 btn btn-light">
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        }
+
+    }
+
+
+
 </form>
 
 @section Scripts {

@@ -64,11 +64,11 @@ namespace RCL_Inventory.Controllers
             List<Transaction> transactionFilter = new List<Transaction>();
      
 
-            var products = _context.Products.Include(t => t.Category).ToList();
-            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
-            var categories = _context.Categories.ToList();
+            var products = await _context.Products.Include(t => t.Category).ToListAsync();
+            var suppliers = await _context.Suppliers.Include(t => t.Address).ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
             //var transactions = _context.Transaction.Include(t => t.TransactionType).Where(t => t.TransactionTypeId == id.Value).ToListAsync();
-            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+           PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
             {
                 ProductsList = products,
                 SuppliersList = suppliers,
@@ -149,7 +149,7 @@ namespace RCL_Inventory.Controllers
         //Criando a multimodel operation
         // GET: Transactions/Create
         [HttpGet]
-        public IActionResult CreatePurchase()
+        public IActionResult CreatePurchase(int? id)
         {
             var products = _context.Products.Include(t => t.Category).ToList(); ;
             var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
@@ -161,7 +161,8 @@ namespace RCL_Inventory.Controllers
             {
                 ProductsList = products,
                 SuppliersList = suppliers,
-                CategoriesList = categories
+                CategoriesList = categories,
+                TransactionTypeId = id.Value
 
             };
             return View(ppvw);
@@ -170,8 +171,11 @@ namespace RCL_Inventory.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePurchase([Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
+        public async Task<IActionResult> CreatePurchase(int id,[Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
         {
+
+
+            
 
             var productId = transaction.ProductId;
 
@@ -186,13 +190,13 @@ namespace RCL_Inventory.Controllers
                 CategoryId = categoryInt,
                 ProductId = transaction.ProductId,
                 Quantity = transaction.Quantity,
-                TransactionTypeId = transaction.TransactionTypeId,
+                TransactionTypeId = id,
                 SupplierId = transaction.SupplierId   
             };
 
             if (ModelState.IsValid)
             {
-                _context.Add(transaction);
+                _context.Add(transactionContext);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -211,11 +215,14 @@ namespace RCL_Inventory.Controllers
 
 
             int transactionId = transaction.TransactionId;
+            int transactionTypeId = transaction.TransactionTypeId;
             var ppvw = new PurchaseProductViewModels()
             {
                 ProductsList = products,
                 SuppliersList = suppliers,
-                TransactionId = transactionId
+                TransactionId = transactionId,
+                TransactionTypeId = transactionTypeId
+
             };
             return View(ppvw);
            
