@@ -4,15 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
 
+<hr />
+<h2 class="title" >Categories</h2>
+<hr />
 <p>
-    <a asp-action="Create" class="btn btn-light">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create a new Category</a>
 </p>
+
+
+
 <table id="myTable" class="table-hover">
     <thead>
         <tr>
-            <th>
+            <th class="catTitle">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
@@ -22,10 +31,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="catName">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td class="righColum">
                     <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
@@ -38,8 +47,8 @@
 @section Scripts {
 
     <script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
     </script>
 }
