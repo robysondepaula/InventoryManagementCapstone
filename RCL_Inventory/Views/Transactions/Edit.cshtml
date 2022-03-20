@@ -17,9 +17,6 @@
         <input id="ProductId" asp-for="Transaction.ProductId" class="form-control" />
     </div>
     <div hidden class="form-group">
-        <input id="CategoryId" asp-for="Transaction.CategoryId" class="form-control" />
-    </div>
-    <div hidden class="form-group">
         <input id="SupplierId" asp-for="Transaction.SupplierId" class="form-control" />
     </div>
     <!--Product Table-->
@@ -30,7 +27,7 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Transaction.CategoryId)
+                            @Html.DisplayNameFor(model => model.Transaction.Product.CategoryId)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Products.Name)

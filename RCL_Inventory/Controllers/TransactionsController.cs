@@ -19,10 +19,13 @@ namespace RCL_Inventory.Controllers
             _context = context;
         }
 
+   
+
         // GET: Transactions
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
 
             var transaction = await _context.Transaction
                 .Include(t => t.Product)
@@ -187,11 +190,11 @@ namespace RCL_Inventory.Controllers
             Transaction transactionContext = new Transaction()
             {
                 Date = transaction.Date,
-                CategoryId = categoryInt,
                 ProductId = transaction.ProductId,
                 Quantity = transaction.Quantity,
                 TransactionTypeId = id,
-                SupplierId = transaction.SupplierId   
+                SupplierId = transaction.SupplierId,
+                Submitted = false
             };
 
             if (ModelState.IsValid)
@@ -245,7 +248,6 @@ namespace RCL_Inventory.Controllers
             Transaction transactionContext = new Transaction()
             {
                 Date = transaction.Date,
-                CategoryId = categoryInt,
                 ProductId = transaction.ProductId,
                 Quantity = transaction.Quantity,
                 TransactionTypeId = transaction.TransactionTypeId,
@@ -311,6 +313,61 @@ namespace RCL_Inventory.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        public IActionResult SubmitTransactions(int id)
+        {
+
+            int tId;
+            var transactions = _context.Transaction.ToList();
+
+            foreach (var transaction in transactions)
+            {
+                tId = transaction.TransactionId;
+
+                if (transaction.Submitted == false && transaction.TransactionTypeId == id)
+                {
+
+                    var transactionContext = _context.Transaction.Find(transaction.TransactionId);
+
+                    Transaction transactionView = new Transaction()
+                    {
+                        TransactionId = 9999,
+                        Date = transactionContext.Date,
+                        Quantity = transactionContext.Quantity,
+                        SupplierId = transactionContext.SupplierId,
+                        ProductId = transactionContext.ProductId,
+                        TransactionTypeId = transactionContext.TransactionTypeId,
+                        Submitted = true
+                    };
+                    var nova = transactionView;
+
+                            _context.Update(nova);
+
+
+
+                    Transaction newTransaction = new Transaction()
+                    {
+                        TransactionId = tId,
+                        Date = transactionContext.Date,
+                        Quantity = transactionContext.Quantity,
+                        SupplierId = transactionContext.SupplierId,
+                        ProductId = transactionContext.ProductId,
+                        TransactionTypeId = transactionContext.TransactionTypeId,
+                        Submitted = true
+                    };
+                    _context.Update(newTransaction);
+                    _context.SaveChanges();
+
+
+                }
+            }
+            return RedirectToAction(nameof(Index), "TransactionHistories", id);
+        }
+        
+
+
+
 
         private bool TransactionExists(int id)
         {

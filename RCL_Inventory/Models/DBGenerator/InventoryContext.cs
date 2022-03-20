@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RCL_Inventory.Models.DBGenerator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace RCL_Inventory.Models
     public class InventoryContext : DbContext
     {
 
+        public DbSet<TransactionHistory> TransactionHistories { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }

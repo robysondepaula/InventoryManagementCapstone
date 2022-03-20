@@ -17,9 +17,6 @@ namespace RCL_Inventory.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
-        [DisplayName("Category ID")]
-        public int CategoryId { get; set; }
-
         [DisplayName("Product ID")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
@@ -31,6 +28,8 @@ namespace RCL_Inventory.Models
         [DisplayName("Supplier ID")]
         public int SupplierId { get; set;}
         public Supplier Supplier { get; set; }
+
+        public bool Submitted { get; set; }
         
     }
 }
