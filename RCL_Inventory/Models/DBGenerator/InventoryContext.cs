@@ -4,15 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace RCL_Inventory.Models
 {
-    public class InventoryContext : DbContext
+    public class InventoryContext : IdentityDbContext<User>
     {
 
         public DbSet<TransactionHistory> TransactionHistories { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -20,13 +23,13 @@ namespace RCL_Inventory.Models
         public DbSet<Address> Addresses { get; set; }
 
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Category>().HasData(
-                new Category { CategoryId = 1, Name = "Cellphone",Description="Cellphones" },
+                new Category { CategoryId = 1, Name = "Cellphone", Description = "Cellphones" },
                 new Category { CategoryId = 2, Name = "TV", Description = "Television" },
                 new Category { CategoryId = 3, Name = "Laptop", Description = "Portatil Computer" },
                 new Category { CategoryId = 4, Name = "Gaming Console", Description = "PlayStation, Xbox or Wii console" },
@@ -34,18 +37,18 @@ namespace RCL_Inventory.Models
                 new Category { CategoryId = 6, Name = "Home Appliances", Description = "Echo Dot, Google Cast, Alexia Fire, and others." }
            );
 
-            modelBuilder.Entity<Product>().HasData(           
+            modelBuilder.Entity<Product>().HasData(
                 new Product { ProductId = 1, Name = "LG OLED TV", Description = "55 inch 4K OLED Smart TV", Brand = "LG", CategoryId = 2 },
-                new Product { ProductId = 2, Name = "Samsung QLED TV", Description = "75 inch 8K QLED Smart TV", Brand = "Samsung", CategoryId = 2  },
-                new Product { ProductId = 3, Name = "Samsung Smart TV", Description = "65 inch 4K Smart TV", Brand = "Samsung", CategoryId = 2  },
-                new Product { ProductId = 4, Name = "Sony X80J TV", Description = "75 inch 4K HDR LED Smart TV", Brand = "Sony", CategoryId = 2  },
-                new Product { ProductId = 5, Name = "Samsung Galaxy S22", Description = "6.1 inch display, 1080x2340 pixels, 50MP Camera, 8GB RAM, 250GB, Android 12", Brand = "Samsung", CategoryId = 1  },
+                new Product { ProductId = 2, Name = "Samsung QLED TV", Description = "75 inch 8K QLED Smart TV", Brand = "Samsung", CategoryId = 2 },
+                new Product { ProductId = 3, Name = "Samsung Smart TV", Description = "65 inch 4K Smart TV", Brand = "Samsung", CategoryId = 2 },
+                new Product { ProductId = 4, Name = "Sony X80J TV", Description = "75 inch 4K HDR LED Smart TV", Brand = "Sony", CategoryId = 2 },
+                new Product { ProductId = 5, Name = "Samsung Galaxy S22", Description = "6.1 inch display, 1080x2340 pixels, 50MP Camera, 8GB RAM, 250GB, Android 12", Brand = "Samsung", CategoryId = 1 },
                 new Product { ProductId = 6, Name = "Samsung Galaxy S21", Description = "6.4 inch display, 1080x2400 pixels, 12MP Camera, 8GB RAM, 500GB, Android 12", Brand = "Samsung", CategoryId = 1 },
                 new Product { ProductId = 7, Name = "Iphone 13 Pro Max", Description = "6.7 inch display, 1284x2778 pixels, 12MP Camera, 6GB RAM, 512GB, iOS 15", Brand = "Apple", CategoryId = 1 },
                 new Product { ProductId = 8, Name = "Iphone 13", Description = "6.1 inch display, 1170x2532 pixels, 12MP Camera, 4GB RAM, 128GB, iOS 15", Brand = "Apple", CategoryId = 1 },
                 new Product { ProductId = 9, Name = "Xiaomi Redmi Note 11", Description = "6.43 inch display, 1080x2400 pixels, 50MP Camera, 6GB RAM, 256GB, Android 11", Brand = "Xiaomi", CategoryId = 1 },
                 new Product { ProductId = 10, Name = "MSI Laptop", Description = "CPU Intel i7-7700M, 16GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3060RTX, 17.3 inch display", Brand = "MSI", CategoryId = 3 },
-                new Product { ProductId = 11, Name = "Apple MacBook Pro", Description = "8-Core CPU, 16GB RAM, 250GB SSD, 500GB HD, GPU 14-core, 14 inch display", Brand = "Apple", CategoryId = 3},
+                new Product { ProductId = 11, Name = "Apple MacBook Pro", Description = "8-Core CPU, 16GB RAM, 250GB SSD, 500GB HD, GPU 14-core, 14 inch display", Brand = "Apple", CategoryId = 3 },
                 new Product { ProductId = 12, Name = "Alienware Laptop", Description = "CPU Intel i9-9500M, 32GB RAM, 500GB SSD, 1TB HDD, GPU GeForce 3090RTX, 17.3 inch display", Brand = "Alieware", CategoryId = 3 },
                 new Product { ProductId = 13, Name = "Apple MacBook Pro", Description = "8-Core CPU, 32GB RAM, 500GB SSD, 1TB HD, GPU 14-core, 16 inch display", Brand = "Apple", CategoryId = 3 },
                 new Product { ProductId = 14, Name = "Xbox Series X", Description = "Xbox Series X gaming console, with 2 wireless controllers", Brand = "Microsoft", CategoryId = 4 },
@@ -84,7 +87,8 @@ namespace RCL_Inventory.Models
                 new Address { AddressId = 8, Country = "Canada", City = "Calgary", Province = "AL", PostalCode = "T2M 5V3", Street = "21 International Avenue" },
                 new Address { AddressId = 9, Country = "Canada", City = "Kitchener", Province = "ON", PostalCode = "U2K 3U4", Street = "66 Western Road" },
                 new Address { AddressId = 10, Country = "Canada", City = "Waterloo", Province = "ON", PostalCode = "P2T 5C1", Street = "49 Erb Street" },
-                new Address { AddressId = 11, Country = "Canada", City = "Toronto", Province = "ON", PostalCode = "C4Y 1T2", Street = "38 Eastern Avenue" }
+                new Address { AddressId = 11, Country = "Canada", City = "Toronto", Province = "ON", PostalCode = "C4Y 1T2", Street = "38 Eastern Avenue" },
+                new Address { AddressId = 12, Country = "Canada", City = "Waterloo", Province = "ON", PostalCode = "P2T 5C1", Street = "89 Erb Street" }
                 );
 
 
@@ -93,6 +97,35 @@ namespace RCL_Inventory.Models
                 new TransactionType { TransactionTypeId = 2, Name = "Sale" },
                 new TransactionType { TransactionTypeId = 3, Name = "Loss" }
                 );
+
+        }
+
+        public static async Task CreateAdminUser(IServiceProvider serviceProvider)
+        {
+            UserManager<User> userManager =
+                serviceProvider.GetRequiredService<UserManager<User>>();
+            RoleManager<IdentityRole> roleManager = serviceProvider
+                .GetRequiredService<RoleManager<IdentityRole>>();
+
+            string username = "admin";
+            string password = "admin123";
+            string roleName = "Admin";
+
+            // if role doesn't exist, create it
+            if (await roleManager.FindByNameAsync(roleName) == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
+            
+            if (await userManager.FindByNameAsync(username) == null)
+            {
+                User user = new User { UserName = username };
+                var result = await userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, roleName);
+                }
+            }
 
         }
     }

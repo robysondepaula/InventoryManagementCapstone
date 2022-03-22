@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace RCL_Inventory
 {
@@ -28,10 +30,26 @@ namespace RCL_Inventory
             services.AddMemoryCache();
             services.AddSession();
             services.AddControllersWithViews();
-
+            services.AddRouting(options => {
+                options.LowercaseUrls = true;
+                options.AppendTrailingSlash = true;
+            });
 
             services.AddDbContext<InventoryContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("InventoryContext")));
+
+            // Adding identity services to the application
+
+            // Password requirements
+            services.AddIdentity<User, IdentityRole>(options => {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<InventoryContext>()
+              .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,11 +57,13 @@ namespace RCL_Inventory
         {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseDeveloperExceptionPage();
             app.UseRouting();
 
             app.UseAuthorization();
 
+            //These two statements allow the application to be configured to use authentication  (log in/log out) and authorazation (Ex. allow users to see the Suppliers list)
+            app.UseAuthentication();
             app.UseSession();
 
             app.UseEndpoints(endpoints =>
@@ -52,6 +72,10 @@ namespace RCL_Inventory
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            InventoryContext.CreateAdminUser(app.ApplicationServices).Wait();
+
+
         }
     }
 }

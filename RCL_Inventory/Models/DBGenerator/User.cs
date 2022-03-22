@@ -4,28 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RCL_Inventory.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-
-        [Key]
-        [DisplayName("Üser ID")]
-        public int LoginID { get; set; }
-        [Required(ErrorMessage = "Enter your login.")]
-        [DisplayName("Username")]
-        public string Username { get; set; }
-        [Required(ErrorMessage = "Enter your password")]
-        [DisplayName("Password")]
-        public string Password { get; set; }
-        [Required(ErrorMessage = "Enter your Role")]
-        [DisplayName("Roler ID")]
-        public int  RoleId { get; set; }
-        public Roler Roler { get; set; }
-        [DisplayName("Address ID")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        [NotMapped]
+        public IList<string> RoleNames { get; set; }
 
     }
 }
