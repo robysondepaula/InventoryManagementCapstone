@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using RCL_Inventory.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace RCL_Inventory.Controllers
 {
+
     public class AccountController : Controller
     {
         private UserManager<User> userManager;

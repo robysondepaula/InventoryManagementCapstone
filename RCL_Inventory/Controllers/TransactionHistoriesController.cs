@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using RCL_Inventory.Models;
 using RCL_Inventory.Models.DBGenerator;
 using RCL_Inventory.Models.ViewModels.TransactionViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RCL_Inventory.Controllers
 {
+    [Authorize]
     public class TransactionHistoriesController : Controller
     {
         private readonly InventoryContext _context;

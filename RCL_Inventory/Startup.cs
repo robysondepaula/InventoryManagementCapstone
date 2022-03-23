@@ -29,7 +29,7 @@ namespace RCL_Inventory
         {
             services.AddMemoryCache();
             services.AddSession();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRouting(options => {
                 options.LowercaseUrls = true;
                 options.AppendTrailingSlash = true;
@@ -49,23 +49,20 @@ namespace RCL_Inventory
                 options.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<InventoryContext>()
               .AddDefaultTokenProviders();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();         
+            app.UseSession();
             app.UseRouting();
-
-            app.UseAuthorization();
-
             //These two statements allow the application to be configured to use authentication  (log in/log out) and authorazation (Ex. allow users to see the Suppliers list)
             app.UseAuthentication();
-            app.UseSession();
-
+            app.UseAuthorization();
+                      
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

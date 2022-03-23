@@ -14,9 +14,9 @@
             <div class="container">
                 <div style="margin-top:10px;margin-bottom:10px;text-align:center;">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/images/logoRCLfinal.png" style="width:100px;margin-bottom:15px">
+                        <img src="~/images/logoRCLfinal.png" style="width:100px;margin-bottom:15px;position:center">
                     </a>
-                    <h3 class="title" >Inventory Solution Manager</h3>
+                    <h3 class="title" >Inventory Management Solution</h3>
                 </div>
                 <nav>
                     <div class="nav-fostrap text-center">
@@ -40,35 +40,43 @@
                                     <li><a asp-area="" asp-controller="Products" asp-action="Create">Create a new Product</a></li>
                                 </ul>
                             </li>
-                            <li><a asp-area="" asp-controller="Transactions" asp-action="Index">Transaction</a></li>
-                            <li><a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a></li>
-                            <li><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
-                            <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
-                            @*<li><a asp-area="" asp-controller="Users" asp-action="Index">Login</a></li>*@
+                            <li><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></li>
+
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li><a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a></li>
+                            }
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
+                            }
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
+                            }
+
 
                             @inject SignInManager<User> signInManager
                             @if (signInManager.IsSignedIn(User))
                             {
                                 // signed-in user - Log Out button and username
                                 <li class="nav-item">
-                                    <form method="post" asp-action="Logout"
-                                          asp-controller="Account" asp-area="">
+                                    <form method="post" asp-action="Logout" asp-controller="Account" asp-area="">
                                         <input type="submit" value="Log Out"
                                                class="btn btn-outline-light" />
-                                        <span class="text-light">@User.Identity.Name</span>
+                                        <span class="text-light">Hello @User.Identity.Name!</span>
                                     </form>
                                 </li>
                             }
                             else
                             {
-                                // get current action
-                                var action = ViewContext.RouteData.Values["action"]?.ToString();
-
                                 // anonymous user - Register link and Log In button
-                                <li class="nav-item @Nav.Active("Register", action)">
-                                    <a asp-action="Register" asp-controller="Account"
-                                       asp-area="" class="nav-link">Register</a>
-                                </li>
+
+                                <li><a asp-area="" asp-controller="" asp-action="Index">Contact Us</a></li>
+                                <li><a asp-area="" asp-controller="" asp-action="Index">About</a></li>
                                 <li class="nav-item">
                                     <a asp-action="Login" asp-controller="Account"
                                        asp-area="" class="btn btn-outline-light">Log In</a>
@@ -76,14 +84,26 @@
                             }
 
                             @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin"
-                                       my-mark-area-active>
-                                        <span class="fas fa-cog"></span>&nbsp;Admin
-                                    </a>
-                                </li>
-                            }*@
+        {
+            // get current action
+            var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+            <li class="nav-item @Nav.Active("Register", action)">
+                <a asp-action="Register" asp-controller="Account"
+                   asp-area="" class="nav-link">Register</a>
+            </li>
+        }*@
+
+
+                            @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin"
+                   my-mark-area-active>
+                    <span class="fas fa-cog"></span>&nbsp;Admin
+                </a>
+            </li>
+        }*@
 
                         </ul>
 
@@ -109,10 +129,11 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             <div style="margin-top:auto;">
-                &copy; 2022 - RCL Solutions - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; 2022 - RCL Solutions
             </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

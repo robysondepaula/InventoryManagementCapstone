@@ -10,7 +10,7 @@ using RCL_Inventory.Models;
 
 namespace RCL_Inventory.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     public class AddressesController : Controller
     {
         private readonly InventoryContext _context;

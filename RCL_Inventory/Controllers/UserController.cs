@@ -10,7 +10,7 @@ using RCL_Inventory.Models;
 
 namespace RCL_Inventory.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private UserManager<User> userManager;

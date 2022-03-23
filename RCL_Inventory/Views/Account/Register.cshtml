@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 
-<h1>Register</h1>
+<h1>Register a New User</h1>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form method="post" asp-action="Register">
     <div class="form-group row">
@@ -39,11 +39,6 @@
             <button type="submit" class="btn btn-primary">
                 Register
             </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="offset-2 col-sm-4">
-            Already registered? <a asp-action="LogIn">Log In</a>
         </div>
     </div>
 </form>

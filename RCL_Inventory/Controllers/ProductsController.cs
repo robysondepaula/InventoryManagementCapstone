@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RCL_Inventory.Models;
 using RCL_Inventory.Models.ViewModels.ViewModelProduct;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RCL_Inventory.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly InventoryContext _context;

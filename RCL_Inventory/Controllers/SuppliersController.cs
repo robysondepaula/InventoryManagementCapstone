@@ -9,9 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using RCL_Inventory.Models;
 using RCL_Inventory.Models.ViewModels.SupplierViewModel;
 
+
 namespace RCL_Inventory.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     public class SuppliersController : Controller
     {
         private readonly InventoryContext _context;

@@ -99,7 +99,8 @@ namespace RCL_Inventory.Models
                 );
 
         }
-
+        
+        //if admin role doesn't exist, create it
         public static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
             UserManager<User> userManager =
@@ -107,11 +108,11 @@ namespace RCL_Inventory.Models
             RoleManager<IdentityRole> roleManager = serviceProvider
                 .GetRequiredService<RoleManager<IdentityRole>>();
 
-            string username = "admin";
+            string username = "Admin";
             string password = "admin123";
             string roleName = "Admin";
 
-            // if role doesn't exist, create it
+            
             if (await roleManager.FindByNameAsync(roleName) == null)
             {
                 await roleManager.CreateAsync(new IdentityRole(roleName));
