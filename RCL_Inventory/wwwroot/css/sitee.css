@@ -4,12 +4,11 @@
     padding: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
+
     box-sizing: border-box;
 }
 
 body {
-    background: white;
     font-size: 15px;
     color: black;
     font-family: 'Roboto', sans-serif;
@@ -29,6 +28,13 @@ a {
     text-decoration: none;
 }
 
+.card a {
+    color: white;
+    font-size: larger;
+    font-family: sans-serif;
+}
+
+
 
 .container {
     max-width: 1200px;
@@ -42,8 +48,7 @@ a {
     background: #025ea1;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     border-radius: 3px;
     font-family: sans-serif;
@@ -92,8 +97,7 @@ a {
             background: #025ea1;
             -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
             -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-            -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-            -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+   
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
             padding-top: 0;
             font-family: sans-serif;
@@ -167,7 +171,7 @@ a {
         top: 0px;
         -webkit-transition: left 0.25s ease;
         -moz-transition: left 0.25s ease;
-        -ms-transition: left 0.25s ease;
+   
         -o-transition: left 0.25s ease;
         transition: left 0.25s ease;
         margin: 0;
@@ -194,7 +198,7 @@ a {
         left: 0px;
         -webkit-transition: left 0.25s ease;
         -moz-transition: left 0.25s ease;
-        -ms-transition: left 0.25s ease;
+
         -o-transition: left 0.25s ease;
         transition: left 0.25s ease;
     }
@@ -213,8 +217,7 @@ a {
         padding: 12px 0 0 10px;
         -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
         -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+ 
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     }
 
@@ -281,7 +284,7 @@ a {
 
         .nav-fostrap li ul.dropdown li:hover a {
             background: rgba(0,0,0,.1);
-            !important;
+            
             color: #fff !important;
         }
 
@@ -323,3 +326,9 @@ a {
     right: 0;
     left: 0;
 }
+
+.btn-outline-light {
+    font-size: x-large;
+    color:white;
+}
+
