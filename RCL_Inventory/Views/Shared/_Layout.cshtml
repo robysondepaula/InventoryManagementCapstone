@@ -18,7 +18,7 @@
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/images/logoRCLfinal.png" style="width:100px;margin-bottom:15px;position:center">
                     </a>
-                    <h3 class="title" >Inventory Management Solutions</h3>
+                    <h3 class="title">Inventory Management Solutions</h3>
                 </div>
                 <nav>
                     <div class="nav-fostrap text-center">
@@ -42,18 +42,39 @@
                                     <li><a asp-area="" asp-controller="Products" asp-action="Create">Create a new Product</a></li>
                                 </ul>
                             </li>
+
+
                             <li><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></li>
 
 
-                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                            {
-                                <li><a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a></li>
-                            }
+
 
                             @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                             {
-                                <li><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
+                                <li>
+                                    <a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses<span class="arrow-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a asp-area="" asp-controller="Addresses" asp-action="Index">Address</a></li>
+                                        <li><a asp-area="" asp-controller="Addresses" asp-action="Create">Create new Address</a></li>
+                                    </ul>
+                                </li>
+
                             }
+
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers<span class="arrow-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
+                                        <li><a asp-area="" asp-controller="Suppliers" asp-action="Create">Create new Supplier</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+
 
                             @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                             {
@@ -68,8 +89,8 @@
                                 <li>
                                     <form method="post" asp-action="Logout" asp-controller="Account" asp-area="">
                                         <button type="submit" class="btn btn-outline-light"><i class="fa fa-unlock" aria-hidden="true"></i></button>
-                                            @*<span class="text-light">Hello @User.Identity.Name!</span>*@
-                                             <icon-icon><i class='fas fa-user-alt' style="font-size:larger"> @User.Identity.Name</i>
+                                        @*<span class="text-light">Hello @User.Identity.Name!</span>*@
+                                        <icon-icon><i class='fas fa-user-alt' style="font-size:larger"> @User.Identity.Name</i>
                                     </form>
                                 </li>
                             }
@@ -80,33 +101,33 @@
                                 <li><a asp-area="" asp-controller="" asp-action="Index">Contact Us</a></li>
                                 <li><a asp-area="" asp-controller="" asp-action="Index">About</a></li>
                                 <li class="nav-item">
-                                        <a asp-area="" asp-controller="Account" asp-action="Login"><i class="fa fa-lock"> Log In</i></a>
-                                        @*<a asp-action="Login" asp-controller="Account"
-                                           asp-area="" class="btn btn-outline-light">Log In</a>*@
+                                    <a asp-area="" asp-controller="Account" asp-action="Login"><i class="fa fa-lock"> Log In</i></a>
+                                    @*<a asp-action="Login" asp-controller="Account"
+                                        asp-area="" class="btn btn-outline-light">Log In</a>*@
                                 </li>
                             }
 
                             @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-            // get current action
-            var action = ViewContext.RouteData.Values["action"]?.ToString();
+                                {
+                                    // get current action
+                                    var action = ViewContext.RouteData.Values["action"]?.ToString();
 
-            <li class="nav-item @Nav.Active("Register", action)">
-                <a asp-action="Register" asp-controller="Account"
-                   asp-area="" class="nav-link">Register</a>
-            </li>
-        }*@
+                                    <li class="nav-item @Nav.Active("Register", action)">
+                                        <a asp-action="Register" asp-controller="Account"
+                                           asp-area="" class="nav-link">Register</a>
+                                    </li>
+                                }*@
 
 
                             @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin"
-                   my-mark-area-active>
-                    <span class="fas fa-cog"></span>&nbsp;Admin
-                </a>
-            </li>
-        }*@
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin"
+                                           my-mark-area-active>
+                                            <span class="fas fa-cog"></span>&nbsp;Admin
+                                        </a>
+                                    </li>
+                                }*@
 
                         </ul>
 

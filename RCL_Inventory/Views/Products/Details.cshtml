@@ -4,12 +4,20 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
+<hr />
+<h2 class="title">Details</h2>
+<hr />
 
 
 
-<div class="card mt-3">
-    <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Product Information</div>
+<div class="card">
+    <div class="card-header">Product Information</div>
     <div class="card-body">
         <div class="card-body row">
             <div class="form-group col-md">
@@ -43,7 +51,7 @@
 </div>
 
 <div class="card mt-3">
-    <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Category Information</div>
+    <div class="card-header"> Category Information</div>
     <div class="card-body">
         <div class="card-body row">
             <div class="form-group col-md">
@@ -71,7 +79,10 @@
     </div>
 </div>
 
-<div class="mt-2 d-flex justify-content-lg-center">
-    <a asp-action="Edit" asp-route-id="@Model.ProductId" class="mr-2 btn btn-primary">Edit</a> 
-    <a asp-action="Index" class="ml-2 btn btn-light">Back to List</a>
+<div class="mt-2 justify-content-center">
+    <div class="form-group">
+        <a asp-action="Edit" asp-route-id="@Model.ProductId" input type="submit" class="btn btn-primary justify-content-center" style="font-size:20px">Edit</a>
+        <a asp-action="Index" style="align-content:center">Back to List</a>
+    </div>
 </div>
+

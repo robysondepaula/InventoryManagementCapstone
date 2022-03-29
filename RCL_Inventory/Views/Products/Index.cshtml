@@ -1,27 +1,26 @@
-﻿@model IEnumerable<RCL_Inventory.Models.Product>
+﻿
+@model IEnumerable<RCL_Inventory.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-@{ if (TempData["success"] != null)
-    {
-        <div class="d-flex justify-content-center alert alert-success mt-2">
-            @TempData["success"]
-        </div>
-    }
-}
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/css/sitee.css" />
 <link rel="stylesheet" href="~/css/product.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+
+
+
 
 
 <hr />
 <h2 class="title">Products</h2>
 <hr />
 <p>
-    <a asp-action="Create" class="btn btn-primary">+</a>
+    <a asp-action="Create"><input type="button" value="+" class="btn btn-primary"></a>
+
 </p>
 
 <div class="card">

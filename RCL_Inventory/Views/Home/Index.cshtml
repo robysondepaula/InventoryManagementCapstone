@@ -62,18 +62,17 @@
 
     @if (signInManager.IsSignedIn(User))
     {
-        <div class="card">
-            <div>
-                <div class="contentBox"></div>
-                <div class="iconBx">
-                    <icon-icon name="category"><a asp-area="" asp-controller="Transactions" asp-action="Index"><i class='fas fa-exchange-alt'></i></a>
-                </div>
-                <ul>
-                    <li style="list-style-type:none"><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></li>
-                    <li style="list-style-type:none"><a asp-area="" asp-controller="Transactions" asp-action="Create">Create a new Transaction</a></li>
-                </ul>
+<div class="card">
+ 
+            <div class="iconBx">
+                <icon-icon name="category"><a asp-area="" asp-controller="Transactions" asp-action="Index"><i class='fas fa-exchange-alt'></i></a>
             </div>
+            <div class="contentBox" style="text-align:center"><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></div>
+
         </div>
+
+    
+
 
     }
 
@@ -121,7 +120,6 @@
 
     </div>
 
-
     <div class="card">
         <div>
             <div class="iconBx">
@@ -132,6 +130,7 @@
         </div>
 
     </div>
+
 
     <div class="card">
         <div>
@@ -149,7 +148,6 @@
 </div>
 
 <hr class="midleLine" />
-
 
 
 
