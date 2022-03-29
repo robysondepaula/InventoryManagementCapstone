@@ -4,13 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
+@{ if (TempData["success"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-success mt-2">
+            @TempData["success"]
+        </div>
+    }
+}
+
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/css/sitee.css" />
 <link rel="stylesheet" href="~/css/category.css" />
 
 <hr />
-<h2 class="title" >Categories</h2>
+<h2 class="title">Categories</h2>
 <hr />
 <p>
     <a asp-action="Create" class="btn btn-primary">Create a new Category</a>
@@ -30,16 +38,16 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="catName">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td class="righColum">
-                    <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td class="catName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId" class="text-info"><img src="~/images/edit.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryId" class="text-success"><img src="~/images/details.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoryId" class="text-danger"><img src="~/images/delete.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

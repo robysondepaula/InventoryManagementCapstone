@@ -51,6 +51,8 @@ namespace RCL_Inventory.Controllers
         // GET: Suppliers/Create
         public IActionResult Create()
         {
+
+
             var suppliers = _context.Suppliers.ToList();
             var addresses = _context.Addresses.ToList();
 
@@ -75,10 +77,23 @@ namespace RCL_Inventory.Controllers
             {
                 _context.Add(supplier);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Information added successfully.";
                 return RedirectToAction(nameof(Index));
             }
+
+
+            var suppliers = _context.Suppliers.ToList();
+            var addresses = _context.Addresses.ToList();
+
+            SupplierViewModel svm = new SupplierViewModel()
+            {
+                SuppliersList = suppliers,
+                AddressesList = addresses
+            };
+
+            TempData["failed"] = "Failed. Please, select and fill all the fields.";
             ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
-            return View(supplier);
+            return View(svm);
         }
 
         // GET: Suppliers/Edit/5
@@ -109,6 +124,7 @@ namespace RCL_Inventory.Controllers
             {
                 return NotFound();
             }
+
             ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
             return View(svm);
         }
@@ -120,6 +136,7 @@ namespace RCL_Inventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
         {
+
             Supplier supplierContext = new Supplier() {
                 SupplierId = id,
                 Name = supplier.Name,
@@ -147,10 +164,26 @@ namespace RCL_Inventory.Controllers
                         throw;
                     }
                 }
+                TempData["success"] = "Information edited successfully.";
                 return RedirectToAction(nameof(Index));
             }
+
+
+            var suppliers = _context.Suppliers.ToList();
+            var addresses = _context.Addresses.ToList();
+
+            int supplierId = supplier.SupplierId;
+
+            var svm = new SupplierViewModel()
+            {
+                AddressesList = addresses,
+                SuppliersList = suppliers,
+                SupplierId = supplierId
+
+            };
             ViewData["AddressId"] = new SelectList(_context.Addresses, "AddressId", "City", supplier.AddressId);
-            return View(supplier);
+            TempData["failed"] = "Failed. Please, select and fill all the fields.";
+            return View(svm);
         }
 
         // GET: Suppliers/Delete/5
@@ -180,6 +213,7 @@ namespace RCL_Inventory.Controllers
             var supplier = await _context.Suppliers.FindAsync(id);
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
+            TempData["success"] = "Information delited successfully.";
             return RedirectToAction(nameof(Index));
         }
 

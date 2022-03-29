@@ -16,7 +16,7 @@ namespace RCL_Inventory.Models
         [DisplayName("Category Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please write some about the new Category.")]
+        [Required(ErrorMessage = "Please write a Description for the Category.")]
         [DisplayName("Category Description")]
         public string Description { get; set; }
 

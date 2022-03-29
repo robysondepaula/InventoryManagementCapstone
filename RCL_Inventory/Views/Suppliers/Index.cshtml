@@ -4,6 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+@{ if (TempData["success"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-success mt-2">
+            @TempData["success"]
+        </div>
+    }
+}
+
+
 <h1>Index</h1>
 
 <p>
@@ -56,9 +65,9 @@
 @section Scripts {
 
     <script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
     </script>
 }
 

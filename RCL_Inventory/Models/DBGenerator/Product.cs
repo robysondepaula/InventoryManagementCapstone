@@ -15,8 +15,11 @@ namespace RCL_Inventory.Models
 
         [Required(ErrorMessage = "Please enter the Product Name.")]
         [DisplayName("Product Name")]
+        [StringLength(5)]
         public string Name { get; set; }
 
+
+        [Required(ErrorMessage = "Please enter the Product Description.")]
         [DisplayName("Product Description")]
         public string Description { get; set; }
 
@@ -26,7 +29,7 @@ namespace RCL_Inventory.Models
         public string Brand { get; set; }
         //.....
 
-        [Required(ErrorMessage = "Please choose the Category Name.")]
+        [Required(ErrorMessage = "Please choose the Category.")]
         [DisplayName("Category ID")]
         public int CategoryId { get; set; }    
         

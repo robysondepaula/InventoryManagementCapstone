@@ -61,8 +61,10 @@ namespace RCL_Inventory.Controllers
             {
                 _context.Add(address);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Information Added successfully.";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["failed"] = "Failed. Please, select and fill all the fields.";
             return View(address);
         }
 
@@ -112,8 +114,10 @@ namespace RCL_Inventory.Controllers
                         throw;
                     }
                 }
+                TempData["success"] = "Information edited successfully.";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["failed"] = "Failed. Please, fill all the fields.";
             return View(address);
         }
 
@@ -143,6 +147,7 @@ namespace RCL_Inventory.Controllers
             var address = await _context.Addresses.FindAsync(id);
             _context.Addresses.Remove(address);
             await _context.SaveChangesAsync();
+            TempData["success"] = "Information deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

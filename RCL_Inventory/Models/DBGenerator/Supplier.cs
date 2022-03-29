@@ -28,7 +28,7 @@ namespace RCL_Inventory.Models
         [DisplayName("Supplier Account")]
         public string AccountNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Please, select an Address.")]
         [DisplayName("Address ID")]
         public int AddressId { get; set; }
         public Address Address { get; set; }

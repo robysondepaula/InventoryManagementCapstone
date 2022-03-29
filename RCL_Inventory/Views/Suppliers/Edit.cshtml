@@ -4,6 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
+
 <h1>Edit</h1>
 
 <h4>Supplier</h4>
@@ -13,7 +21,7 @@
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input type="hidden" id="SupplierId" asp-for="SupplierId" />
+    <input type="hidden" id="SupplierId" asp-for="SupplierId" />
 
 
     <div hidden class="form-group">
@@ -23,6 +31,7 @@
     <div class="card">
         <div class="card-header bg-dark text-white d-flex justify-content-center">Addresses List</div>
         <div class="card-body">
+            <span asp-validation-for="@Model.Supplier.AddressId" class="text-danger d-flex justify-content-center"></span>
             <table id="addressTable" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -70,6 +79,7 @@
             </table>
         </div>
     </div>
+    
 
     <div class="card mt-3">
         <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Supplier Information</div>
@@ -77,19 +87,19 @@
             <div class="form-group col-md">
                 <label asp-for="Supplier.Name" class="control-label d-flex justify-content-center"></label>
                 <input asp-for="Supplier.Name" class="form-control" />
-                <span asp-validation-for="Supplier.Name" class="text-danger"></span>
+                <span asp-validation-for="Supplier.Name" class="text-danger d-flex justify-content-center"></span>
             </div>
 
             <div class="form-group col-md">
                 <label asp-for="@Model.Supplier.Telephone" class="control-label d-flex justify-content-center"></label>
                 <input asp-for="@Model.Supplier.Telephone" class="form-control" />
-                <span asp-validation-for="Supplier.Telephone" class="text-danger"></span>
+                <span asp-validation-for="Supplier.Telephone" class="text-danger d-flex justify-content-center"></span>
             </div>
 
             <div class="form-group col-md">
                 <label asp-for="@Model.Supplier.AccountNumber" class="control-label d-flex justify-content-center"></label>
                 <input asp-for="@Model.Supplier.AccountNumber" class="form-control" />
-                <span asp-validation-for="Supplier.AccountNumber" class="text-danger"></span>
+                <span asp-validation-for="Supplier.AccountNumber" class="text-danger d-flex justify-content-center"></span>
             </div>
         </div>
     </div>

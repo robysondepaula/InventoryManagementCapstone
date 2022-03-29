@@ -62,8 +62,10 @@ namespace RCL_Inventory.Models
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Information added successfully.";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["failed"] = "Failed. Please, fill all the fields.";
             return View(category);
         }
 
@@ -113,8 +115,10 @@ namespace RCL_Inventory.Models
                         throw;
                     }
                 }
+                TempData["success"] = "Information edited successfully.";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["failed"] = "Failed. Please, fill all the fields.";
             return View(category);
         }
 
@@ -144,6 +148,7 @@ namespace RCL_Inventory.Models
             var category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
+            TempData["success"] = "Information deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

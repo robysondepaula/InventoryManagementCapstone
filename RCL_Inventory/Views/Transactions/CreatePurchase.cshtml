@@ -1,6 +1,15 @@
 ﻿@model PurchaseProductViewModels
 <!--IEnumerable<RCL_Inventory.Models.ViewModels.PurchaseProductViewModels>-->
 
+
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
+
 @{if (Model.TransactionTypeId == 1)
     {
         ViewData["Title"] = "Create a New Purchase";
@@ -9,12 +18,12 @@
     else if (Model.TransactionTypeId == 2)
     {
         ViewData["Title"] = "Create a New Sale";
-<h1 class="font-weight-bolder">Create a New Sale</h1>
+        <h1 class="font-weight-bolder">Create a New Sale</h1>
     }
     else
     {
         ViewData["Title"] = "Create a New Loss";
-<h1 class="font-weight-bolder">Create a New Loss</h1>
+        <h1 class="font-weight-bolder">Create a New Loss</h1>
     }
 
 }
@@ -22,7 +31,7 @@
 
 
 <form asp-action="CreatePurchase" method="post">
-
+    <div asp-validation-summary="ModelOnly" style="color:#b91010"></div>
 
     <!-- Invisivel atributes -->
     <div hidden class="form-group">
@@ -70,7 +79,7 @@
             </table>
         </div>
     </div>
-
+    <span asp-validation-for="Transaction.ProductId" class="text-danger d-flex justify-content-center"></span>
     <!--Product Table-->
     <div class="card mt-3">
         <div class="card-header bg-dark text-white d-flex justify-content-center">Suppliers List</div>
@@ -104,7 +113,7 @@
             </table>
         </div>
     </div>
-
+    <span asp-validation-for="Transaction.SupplierId" class="text-danger d-flex justify-content-center"></span>
 
     <div class="card mt-3 ">
         <div class="card-header bg-dark text-white d-flex justify-content-center"> Transaction Detail</div>
@@ -113,12 +122,13 @@
                 <div class="form-group">
                     <label asp-for="Transaction.Date" class="control-label d-flex justify-content-center"></label>
                     <input asp-for="Transaction.Date" class="form-control" />
-                    <span asp-validation-for="Transaction.Date" class="text-danger"></span>
+                    <span asp-validation-for="Transaction.Date" class="text-danger d-flex justify-content-center"></span>
                 </div>
             </div>
             <div class="form-group col-md">
                 <label asp-for="@Model.Transaction.Quantity" class="control-label d-flex justify-content-center"></label>
                 <input asp-for="@Model.Transaction.Quantity" class="form-control" />
+                <span asp-validation-for="Transaction.Quantity" class="text-danger d-flex justify-content-center"></span>
             </div>
         </div>
     </div>

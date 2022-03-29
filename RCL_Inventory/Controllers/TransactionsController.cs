@@ -142,14 +142,6 @@ namespace RCL_Inventory.Controllers
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
-        {
-            //alterado
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name");
-            ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
-            return View();
-        }
 
         //Criando a multimodel operation
         // GET: Transactions/Create
@@ -179,36 +171,58 @@ namespace RCL_Inventory.Controllers
         public async Task<IActionResult> CreatePurchase(int id,[Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
         {
 
-
             
 
-            var productId = transaction.ProductId;
-
-            var productContext = _context.Products.Find(productId);
-
-            int categoryInt = productContext.CategoryId;
 
 
-            Transaction transactionContext = new Transaction()
-            {
-                Date = transaction.Date,
-                ProductId = transaction.ProductId,
-                Quantity = transaction.Quantity,
-                TransactionTypeId = id,
-                SupplierId = transaction.SupplierId,
-                Submitted = false
-            };
 
             if (ModelState.IsValid)
             {
+                var productId = transaction.ProductId;
+
+                var productContext = _context.Products.Find(productId);
+
+                int categoryInt = productContext.CategoryId;
+
+
+                Transaction transactionContext = new Transaction()
+                {
+                    Date = transaction.Date,
+                    ProductId = transaction.ProductId,
+                    Quantity = transaction.Quantity,
+                    TransactionTypeId = id,
+                    SupplierId = transaction.SupplierId,
+                    Submitted = false
+                };
+
+
+
                 _context.Add(transactionContext);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Information added successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
+            var products = _context.Products.Include(t => t.Category).ToList(); ;
+            var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
+            var categories = _context.Categories.ToList();
+
+
+
+            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
+            {
+                ProductsList = products,
+                SuppliersList = suppliers,
+                CategoriesList = categories,
+                TransactionTypeId = id
+
+            };
+
+
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
             ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
-            return View(transaction);
+            TempData["failed"] = "Failed. Please, select and fill all the fields.";
+            return View(ppvw);
         }
 
         // GET: Transactions/Edit/5
@@ -217,7 +231,6 @@ namespace RCL_Inventory.Controllers
             var products = await _context.Products.Include(t => t.Category).ToListAsync();
             var suppliers = await _context.Suppliers.Include(t => t.Address).ToListAsync();
             var transaction = await _context.Transaction.FindAsync(id);
-
 
             int transactionId = transaction.TransactionId;
             int transactionTypeId = transaction.TransactionTypeId;
@@ -240,33 +253,52 @@ namespace RCL_Inventory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
         {
-   
-            var productId = transaction.ProductId;
-
-            var productContext = _context.Products.Find(productId);
-
-            int categoryInt = productContext.CategoryId;
-
-            Transaction transactionContext = new Transaction()
-            {
-                Date = transaction.Date,
-                ProductId = transaction.ProductId,
-                Quantity = transaction.Quantity,
-                TransactionTypeId = transaction.TransactionTypeId,
-                SupplierId = transaction.SupplierId,
-                TransactionId = id
-                
-            };
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var productId = transaction.ProductId;
+
+                    var productContext = _context.Products.Find(productId);
+
+                    int categoryInt = productContext.CategoryId;
+
+                    Transaction transactionContext = new Transaction()
+                    {
+                        Date = transaction.Date,
+                        ProductId = transaction.ProductId,
+                        Quantity = transaction.Quantity,
+                        TransactionTypeId = transaction.TransactionTypeId,
+                        SupplierId = transaction.SupplierId,
+                        TransactionId = id
+
+                    };
+
                     _context.Update(transactionContext);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();          
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+
+                    var productId = transaction.ProductId;
+
+                    var productContext = _context.Products.Find(productId);
+
+                    int categoryInt = productContext.CategoryId;
+
+                    Transaction transactionContext = new Transaction()
+                    {
+                        Date = transaction.Date,
+                        ProductId = transaction.ProductId,
+                        Quantity = transaction.Quantity,
+                        TransactionTypeId = transaction.TransactionTypeId,
+                        SupplierId = transaction.SupplierId,
+                        TransactionId = id
+
+                    };
+
+
                     if (!TransactionExists(transactionContext.TransactionId))
                     {
                         return NotFound();
@@ -276,8 +308,27 @@ namespace RCL_Inventory.Controllers
                         throw;
                     }
                 }
+                TempData["success"] = "Information edited successfully.";
                 return RedirectToAction(nameof(Index));
             }
+
+            var products = await _context.Products.Include(t => t.Category).ToListAsync();
+            var suppliers = await _context.Suppliers.Include(t => t.Address).ToListAsync();
+            var transactionHolder = await _context.Transaction.FindAsync(id);
+
+            int transactionId = transactionHolder.TransactionId;
+            int transactionTypeId = transaction.TransactionTypeId;
+            var ppvw = new PurchaseProductViewModels()
+            {
+                ProductsList = products,
+                SuppliersList = suppliers,
+                TransactionId = transactionId,
+                TransactionTypeId = transactionTypeId
+
+            };
+            return View(ppvw);
+
+
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
             ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
             return View(transaction);
@@ -313,6 +364,7 @@ namespace RCL_Inventory.Controllers
             var transaction = await _context.Transaction.FindAsync(id);
             _context.Transaction.Remove(transaction);
             await _context.SaveChangesAsync();
+            TempData["success"] = "Information deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

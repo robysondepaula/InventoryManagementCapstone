@@ -4,6 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
+@{ if (TempData["success"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-success mt-2">
+            @TempData["success"]
+        </div>
+    }
+}
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/css/sitee.css" />
