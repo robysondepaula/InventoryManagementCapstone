@@ -168,7 +168,7 @@
                 {
                     <div class="form-group col-md">
                         <div style="padding-top:10px; padding-bottom:10px; ">
-                            <a asp-action="CreatePurchase" asp-route-id="1" class="btn btn-light">
+                            <a asp-action="CreatePurchase" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
@@ -177,21 +177,21 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md d-flex justify-content-end">
+                    @*<div class="form-group col-md d-flex justify-content-end">
                         <div class="mr-2">
-                            <a asp-action="SubmitTransactions" asp-route-id="1" class="btn btn-light">
+                            <a asp-action="SubmitTransactions" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                                 </svg>  Submit
                             </a>
                         </div>
-                    </div>
+                    </div>*@
                 }
                 else if (Model.TransactionTypeId == 2)
                 {
                     <div class="form-group col-md">
                         <div style="padding-top:10px; padding-bottom:10px; ">
-                            <a asp-action="CreatePurchase" asp-route-id="2" class="btn btn-light">
+                            <a asp-action="CreatePurchase" asp-route-id="2" class="btn btn-light" style="color:black; font-family:sans-serif">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
@@ -201,17 +201,17 @@
                     </div>
 
 
-                    <form asp-action="Create" asp-controller="TransactionHistories" method="post">
+                    <!--<form asp-action="Create" asp-controller="TransactionHistories" method="post">
                         <div class="form-group col-md d-flex justify-content-end">
                             <div class="mr-2">
-                                <button @*asp-action="SubmitTransactions"*@ formmethod="post" type="submit" asp-route-id="2" class="btn btn-light">
+                                <button--> @*asp-action="SubmitTransactions"*@ <!--formmethod="post" type="submit" asp-route-id="2" class="btn btn-light">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                                     </svg>  Submit
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>-->
 
 
                     @*<div class="form-group col-md d-flex justify-content-end">
@@ -231,7 +231,7 @@
                 {
                     <div class="form-group col-md">
                         <div style="padding-top:10px; padding-bottom:10px; ">
-                            <a asp-action="CreatePurchase" asp-route-id="3" class="btn btn-light">
+                            <a asp-action="CreatePurchase" asp-route-id="3" class="btn btn-light" style="color:black; font-family:sans-serif">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 8px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
@@ -241,15 +241,15 @@
                     </div>
 
 
-                    <div class="form-group col-md d-flex justify-content-end">
+                    <!--<div class="form-group col-md d-flex justify-content-end">
                         <div class="mr-2">
-                            <a @*asp-action="SubmitTransactions"*@ asp-route-id="3" class="btn btn-light">
+                            <a--> @*asp-action="SubmitTransactions"*@ <!--asp-route-id="3" class="btn btn-light" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                                 </svg>  Submit
                             </a>
                         </div>
-                    </div>
+                    </div>-->
 
                 }
                 else

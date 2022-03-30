@@ -18,10 +18,7 @@
 <hr />
 <h2 class="title">Products</h2>
 <hr />
-<p>
-    <a asp-action="Create"><input type="button" value="+" class="btn btn-primary"></a>
 
-</p>
 
 <div class="card">
     <div class="card-header">Product List</div>
@@ -71,6 +68,10 @@
             </tfoot>
         </table>
     </div>
+    <p style="padding-left:1em">
+        <a asp-action="Create" class="btn btn-primary" style="width:65px;font-size:xx-large;">+</a>
+    </p>
+
 </div>
 
 @section Scripts {

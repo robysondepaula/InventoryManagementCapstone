@@ -11,7 +11,8 @@
 
 <hr />
 <h2 class="title">Details</h2>
-<hr /><link rel="stylesheet" href="~/css/product.css" />
+<hr />
+<link rel="stylesheet" href="~/css/product.css" />
 
 
 <div class="card mt-3">
@@ -91,9 +92,13 @@
     </div>
 </div>
 
-<div class="mt-2 d-flex justify-content-center">
-    <div class="form-group">
-        <a asp-action="Edit" asp-route-id="@Model.SupplierId" input type="submit" class="btn btn-primary justify-content-center" style="font-size:20px">Edit</a> |
-        <a asp-action="Index" style="align-content:center">Back to List</a>
+
+
+<div class="d-flex justify-content-center mt-2">
+    <div class="mr-2">
+        <a asp-action="Edit" asp-route-id="@Model.SupplierId" input type="submit" class="btn btn-primary mr-2" style="font-size:20px">Edit</a>|
     </div>
+    <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+        <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
     </div>
+</div>
