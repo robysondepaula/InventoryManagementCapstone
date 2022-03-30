@@ -89,36 +89,6 @@ namespace RCL_Inventory.Controllers
         }
 
 
-        //public async Task<IActionResult> IndexSales(int? id)
-        //{
-
-        //    var transaction = await _context.Transaction
-        //        .Include(t => t.Product)
-        //         .Include(t => t.Product.Category)
-        //        .Include(t => t.Supplier)
-        //        .Include(t => t.TransactionType).ToListAsync();
-
-        //    var products = _context.Products.Include(t => t.Category).ToList(); ;
-        //    var suppliers = _context.Suppliers.Include(t => t.Address).ToList();
-        //    var categories = _context.Categories.ToList();
-        //    var transactions = _context.Transaction.Include(t => t.TransactionType).ToList();
-
-        //    PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
-        //    {
-        //        ProductsList = products,
-        //        SuppliersList = suppliers,
-        //        CategoriesList = categories,
-        //        TransactionsList = transactions
-        //    };
-
-
-
-        //    ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name");
-
-        //    return View(ppvw);
-        //}
-
-
         // GET: Transactions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -326,12 +296,11 @@ namespace RCL_Inventory.Controllers
                 TransactionTypeId = transactionTypeId
 
             };
-            return View(ppvw);
 
 
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "Name", transaction.ProductId);
             ViewData["TransactionTypeId"] = new SelectList(_context.TransactionTypes, "TransactionTypeId", "Name", transaction.TransactionTypeId);
-            return View(transaction);
+            return View(ppvw);
         }
 
         // GET: Transactions/Delete/5
