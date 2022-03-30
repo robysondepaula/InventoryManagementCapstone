@@ -3,7 +3,19 @@
     ViewBag.Title = "Register";
 }
 
-<h1>Register a New User</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+
+
+
+
+<hr />
+<h2 class="title">Register a New User</h2>
+<hr />
+
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form method="post" asp-action="Register">
     <div class="form-group row">
@@ -36,7 +48,7 @@
     </div>
     <div class="row">
         <div class="offset-2 col-sm-4">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary justify-content-center" style="font-size:20px">
                 Register
             </button>
         </div>

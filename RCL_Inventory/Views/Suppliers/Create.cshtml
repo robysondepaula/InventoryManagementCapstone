@@ -4,6 +4,12 @@
     ViewData["Title"] = "Create";
 }
 
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -12,9 +18,11 @@
     }
 }
 
-<h1>Create</h1>
+<hr />
 
-<h4>Supplier</h4>
+
+<h2 class="title">Create Supplier</h2>
+
 <hr />
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -23,7 +31,7 @@
     </div>
 
     <div class="card">
-        <div class="card-header bg-dark text-white d-flex justify-content-center">Addresses List</div>
+        <div class="card-header">Addresses List</div>
         <div class="card-body">
             <table id="addressTable" class="display" style="width:100%">
                 <thead>
@@ -75,7 +83,7 @@
     <span asp-validation-for="Supplier.AddressId" class="text-danger d-flex justify-content-center"></span>
 
     <div class="card mt-3">
-        <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Supplier Information</div>
+        <div class="card-header"> Supplier Information</div>
         <div class="card-body row">
             <div class="form-group col-md">
                 <label asp-for="Supplier.Name" class="control-label d-flex justify-content-center"></label>
@@ -99,11 +107,8 @@
 
     <div class="mt-2 d-flex justify-content-center">
         <div class="form-group">
-            <input type="submit" value="Create" class="mr-2 btn btn-primary" />
-        </div>
-
-        <div>
-            <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
+            <input type="submit" value="Create" class="btn btn-primary justify-content-center" style="font-size:20px" /> |
+            <a asp-action="Index" style="align-content:center">Back to List</a>
         </div>
     </div>
 </form>

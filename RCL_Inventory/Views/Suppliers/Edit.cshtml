@@ -4,6 +4,13 @@
     ViewData["Title"] = "Edit";
 }
 
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -12,9 +19,8 @@
     }
 }
 
-<h1>Edit</h1>
-
-<h4>Supplier</h4>
+<hr />
+<h2 class="title">Edit</h2>
 <hr />
 
 
@@ -29,7 +35,7 @@
     </div>
 
     <div class="card">
-        <div class="card-header bg-dark text-white d-flex justify-content-center">Addresses List</div>
+        <div class="card-header">Addresses List</div>
         <div class="card-body">
             <span asp-validation-for="@Model.Supplier.AddressId" class="text-danger d-flex justify-content-center"></span>
             <table id="addressTable" class="display" style="width:100%">
@@ -79,10 +85,10 @@
             </table>
         </div>
     </div>
-    
+
 
     <div class="card mt-3">
-        <div class="card-header font-weight-bolder bg-dark text-white d-flex justify-content-center"> Supplier Information</div>
+        <div class="card-header"> Supplier Information</div>
         <div class="card-body row">
             <div class="form-group col-md">
                 <label asp-for="Supplier.Name" class="control-label d-flex justify-content-center"></label>
@@ -106,13 +112,10 @@
 
     <div class="mt-2 d-flex justify-content-center">
         <div class="form-group">
-            <input type="submit" value="Save" class="mr-2 btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary justify-content-center" style="font-size:20px" /> |
+            <a asp-action="Index" style="align-content:center">Back to List</a>
         </div>
-
-        <div>
-            <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
         </div>
-    </div>
 </form>
 
 
