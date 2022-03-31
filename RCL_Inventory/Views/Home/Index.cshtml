@@ -24,7 +24,7 @@
 
     @if (signInManager.IsSignedIn(User))
     {
-        <div class="card">
+        <div class="card" onclick="location.href='@Url.Action("", "Categories")'">
             <div>
 
                 <div class="contentBox"></div>
@@ -44,7 +44,7 @@
 
     @if (signInManager.IsSignedIn(User))
     {
-        <div class="card">
+        <div class="card" onclick="location.href='@Url.Action("", "Products")'">
             <div>
                 <div class="contentBox"></div>
                 <div class="iconBx">
@@ -62,7 +62,7 @@
 
     @if (signInManager.IsSignedIn(User))
     {
-<div class="card">
+<div class="card" onclick="location.href='@Url.Action("", "Transactions")'">
  
             <div class="iconBx">
                 <icon-icon name="category"><a asp-area="" asp-controller="Transactions" asp-action="Index"><i class='fas fa-exchange-alt'></i></a>
@@ -79,7 +79,7 @@
     @inject SignInManager<User> signInManager
     @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
-        <div class="card">
+        <div class="card" onclick="location.href='@Url.Action("", "Addresses")'" >
             <div>
                 <div class="contentBox"></div>
                 <div class="iconBx">
@@ -96,7 +96,7 @@
 
     @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
-        <div class="card">
+        <div class="card" onclick="location.href='@Url.Action("", "Suppliers")'">
             <div>
                 <div class="contentBox"></div>
                 <div class="iconBx">
@@ -110,9 +110,9 @@
         </div>
     }
 
-    <div class="card">
+    <div class="card" onclick="location.href='@Url.Action("", "AboutUs")'" >
         <div class="iconBx">
-            <icon-icon name="category"><a asp-area="" asp-controller="" asp-action="Index"><i class='fas fa-users'></i></a>
+            <icon-icon name="category"><a asp-area="" asp-controller="AboutUs" asp-action="Index"><i class='fas fa-users'></i></a>
         </div>
         <div>
             <div class="contentBox" style="text-align:center">About Us</div>
@@ -120,26 +120,25 @@
 
     </div>
 
-    <div class="card">
-        <div>
-            <div class="iconBx">
-                <icon-icon name="category"><a asp-area="" asp-controller="" asp-action="Index"><i class='far fa-question-circle'></i></a>
+    <div class="card" onclick="location.href='@Url.Action("", "Help")'" >
+            <div>
+                <div class="iconBx">
+                    <icon-icon name="category"><a asp-area="" asp-controller="Help" asp-action="Index"><i class='far fa-question-circle'></i></a>
+                </div>
+                <div class="contentBox" style="text-align:center">Help</div>
+
             </div>
-            <div class="contentBox" style="text-align:center">Help</div>
-
-        </div>
-
     </div>
 
 
-    <div class="card">
+    <div class="card"  onclick="location.href='@Url.Action("", "ContactUs")'" >
         <div>
             <div class="iconBx">
-                <icon-icon name="category"><a asp-area="" asp-controller="" asp-action="Index"><i class='fas fa-headset'></i></a>
+               
+                <icon-icon name="category"><a asp-area="" asp-controller="ContactUs" asp-action="Index"><i class='fas fa-headset'></i></a>
             </div>
             <div class="contentBox" style="text-align:center">Contact Us</div>
         </div>
-
     </div>
 
 
