@@ -15,7 +15,7 @@ namespace RCL_Inventory.Models
 
         [Required(ErrorMessage = "Please enter the Product Name.")]
         [DisplayName("Product Name")]
-        [StringLength(5)]
+        [StringLength(50)]
         public string Name { get; set; }
 
 

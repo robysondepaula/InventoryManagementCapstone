@@ -22,6 +22,7 @@ namespace RCL_Inventory.Models
 
         [Required(ErrorMessage ="Please, select product.")]
         [DisplayName("Product ID")]
+
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
