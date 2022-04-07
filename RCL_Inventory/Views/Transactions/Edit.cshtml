@@ -4,6 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -13,10 +19,10 @@
 }
 
 
-<h1 class="font-weight-bolder">Edit a Transaction</h1>
-
-<h4>Transaction</h4>
 <hr />
+<h2 class="title">Edit Transaction</h2>
+<hr />
+
 
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,7 +36,7 @@
     </div>
     <!--Product Table-->
     <div class="card">
-        <div class="card-header bg-dark text-white d-flex justify-content-center">Products Information</div>
+        <div class="card-header text-white bg-blue  d-flex justify-content-center">Products Information</div>
         <div class="card-body">
             <table id="productTable" class="display" style="width:100%">
                 <thead>
@@ -65,7 +71,7 @@
     <span asp-validation-for="Transaction.ProductId" class="text-danger d-flex justify-content-center"></span>
     <!--Product Table-->
     <div class="card mt-3">
-        <div class="card-header bg-dark text-white d-flex justify-content-center">Suppliers Information</div>
+        <div class="card-header text-white bg-blue  d-flex justify-content-center">Suppliers Information</div>
         <div class="card-body">
             <table id="supplierTable" class="display" style="width:100%">
                 <thead>
@@ -99,7 +105,7 @@
     <span asp-validation-for="Transaction.SupplierId" class="text-danger d-flex justify-content-center"></span>
 
     <div class="card mt-3 ">
-        <div class="card-header bg-dark text-white d-flex justify-content-center"> Transaction Information</div>
+        <div class="card-header text-white bg-blue d-flex justify-content-center"> Transaction Information</div>
         <div class="card-body row">
             <div class="form-group col-md">
                 <div class="form-group">
