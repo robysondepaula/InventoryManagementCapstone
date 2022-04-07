@@ -21,13 +21,13 @@ namespace RCL_Inventory.Models
             _context = context;
         }
 
-        // GET: Categories
+        // Method Get to show Categories Information.
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // Method Get to show Category Details.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,15 +45,13 @@ namespace RCL_Inventory.Models
             return View(category);
         }
 
-        // GET: Categories/Create
+        // Method Get to create a new Category.
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post to create a new Category.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,Name, Description")] Category category)
@@ -69,7 +67,7 @@ namespace RCL_Inventory.Models
             return View(category);
         }
 
-        // GET: Categories/Edit/5
+        // Method Get to Edit a Category.
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,9 +83,7 @@ namespace RCL_Inventory.Models
             return View(category);
         }
 
-        // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post to Edit a Category.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name, Description")] Category category)
@@ -122,7 +118,7 @@ namespace RCL_Inventory.Models
             return View(category);
         }
 
-        // GET: Categories/Delete/5
+        // Method Get to Delete a Category.
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,7 +136,7 @@ namespace RCL_Inventory.Models
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        // Method Post to Delete a Category.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

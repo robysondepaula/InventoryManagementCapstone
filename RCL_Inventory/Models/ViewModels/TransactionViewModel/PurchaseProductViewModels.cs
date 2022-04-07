@@ -8,8 +8,7 @@ namespace RCL_Inventory.Models.ViewModels
 {
     public class PurchaseProductViewModels
     {
-
-
+        //Helper to show on Transaction View
         [Required]
         public int ProductId { get; set; }
         public Product Products { get; set; }

@@ -13,13 +13,20 @@ namespace RCL_Inventory.Models
 {
     public class InventoryContext : IdentityDbContext<User>
     {
-
+        
         public DbSet<TransactionHistory> TransactionHistories { get; set; }
+
+        //Transaction Database
         public DbSet<Transaction> Transaction { get; set; }
+        //Products Database
         public DbSet<Product> Products { get; set; }
+        //Category Database
         public DbSet<Category> Categories { get; set; }
+        //Supplier Database
         public DbSet<Supplier> Suppliers { get; set; }
+        //TransactionType Database
         public DbSet<TransactionType> TransactionTypes { get; set; }
+        //Address Database
         public DbSet<Address> Addresses { get; set; }
 
         public InventoryContext(DbContextOptions<InventoryContext> options) : base(options) { }

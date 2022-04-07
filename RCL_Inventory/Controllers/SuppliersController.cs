@@ -22,14 +22,14 @@ namespace RCL_Inventory.Controllers
             _context = context;
         }
 
-        // GET: Suppliers
+        // Method Get to show Supplier Information.
         public async Task<IActionResult> Index()
         {
             var inventoryContext = _context.Suppliers.Include(s => s.Address);
             return View(await inventoryContext.ToListAsync());
         }
 
-        // GET: Suppliers/Details/5
+        // Method Get of Details Supplier
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,7 +48,7 @@ namespace RCL_Inventory.Controllers
             return View(supplier);
         }
 
-        // GET: Suppliers/Create
+        // Method Get of Create Supplier
         public IActionResult Create()
         {
 
@@ -66,9 +66,7 @@ namespace RCL_Inventory.Controllers
             return View(svm);
         }
 
-        // POST: Suppliers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Create Supplier
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
@@ -96,7 +94,7 @@ namespace RCL_Inventory.Controllers
             return View(svm);
         }
 
-        // GET: Suppliers/Edit/5
+        // Method Get of Edit Supplier
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -129,9 +127,7 @@ namespace RCL_Inventory.Controllers
             return View(svm);
         }
 
-        // POST: Suppliers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Edit Supplier
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,Name,Telephone,AccountNumber,AddressId")] Supplier supplier)
@@ -186,7 +182,7 @@ namespace RCL_Inventory.Controllers
             return View(svm);
         }
 
-        // GET: Suppliers/Delete/5
+        // Method Get of Delete Supplier
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -205,7 +201,7 @@ namespace RCL_Inventory.Controllers
             return View(supplier);
         }
 
-        // POST: Suppliers/Delete/5
+        // Method Post of Delete Supplier
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

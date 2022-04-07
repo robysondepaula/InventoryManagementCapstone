@@ -9,6 +9,7 @@ namespace RCL_Inventory.Models.ViewModels.ViewModelProduct
     public class ProductViewModel
     {
 
+        //Helper to show on Product View
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public List<Category> CategoriesList { get; set; }

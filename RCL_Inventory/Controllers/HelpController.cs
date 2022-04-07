@@ -18,6 +18,7 @@ namespace RCL_Inventory.Controllers
             _logger = logger;
         }
 
+        // Method Get to show the Home View.
         public IActionResult Index()
         {
             return View();

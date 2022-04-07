@@ -18,6 +18,8 @@ namespace RCL_Inventory.Controllers
             _logger = logger;
         }
 
+
+        // Method Get to show the About Us View.
         public IActionResult Index()
         {
             return View();

@@ -20,13 +20,14 @@ namespace RCL_Inventory.Controllers
             _context = context;
         }
 
-        // GET: Addresses
+        // Method Get to show Address Information.
         public async Task<IActionResult> Index()
         {
             return View(await _context.Addresses.ToListAsync());
         }
 
-        // GET: Addresses/Details/5
+
+        // Method Get of Details Address.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,15 +45,14 @@ namespace RCL_Inventory.Controllers
             return View(address);
         }
 
-        // GET: Addresses/Create
+
+        // Method Get of Create a new Address.
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Addresses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Create a new Address.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AddressId,Country,City,Province,PostalCode,Street")] Address address)
@@ -68,7 +68,7 @@ namespace RCL_Inventory.Controllers
             return View(address);
         }
 
-        // GET: Addresses/Edit/5
+        // Method Get of Edit Address.
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +84,7 @@ namespace RCL_Inventory.Controllers
             return View(address);
         }
 
-        // POST: Addresses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Edit Address.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AddressId,Country,City,Province,PostalCode,Street")] Address address)
@@ -121,7 +119,7 @@ namespace RCL_Inventory.Controllers
             return View(address);
         }
 
-        // GET: Addresses/Delete/5
+        // Method Get of Delete Address.
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +137,7 @@ namespace RCL_Inventory.Controllers
             return View(address);
         }
 
-        // POST: Addresses/Delete/5
+        // Method Post of Delete Address.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

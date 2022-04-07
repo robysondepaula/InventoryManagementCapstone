@@ -7,6 +7,8 @@ namespace RCL_Inventory.Models.ViewModels.SupplierViewModel
 {
     public class SupplierViewModel
     {
+
+        //Helper to show on Supplier View
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         public List<Supplier> SuppliersList { get; set; }

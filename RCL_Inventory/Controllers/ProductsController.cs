@@ -21,14 +21,14 @@ namespace RCL_Inventory.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // Method Get of Products Information.
         public IActionResult Index()
         {
             var inventoryContext = _context.Products.Include(p => p.Category);
             return View(inventoryContext.ToList());
         }
 
-        // GET: Products/Details/5
+        // Method Get of Products Details.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace RCL_Inventory.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        // Method Get of Create a new Product.
         public IActionResult Create()
         {
             var categories = _context.Categories.ToList();
@@ -59,9 +59,7 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Create a new Product.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
@@ -87,8 +85,8 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-            // GET: Products/Edit/5
-            public async Task<IActionResult> Edit(int? id)
+        // Method Get of Edit a Product.
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -114,9 +112,7 @@ namespace RCL_Inventory.Controllers
             return View(pvm);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Edit a Product.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,Brand,CategoryId")] Product product)
@@ -165,7 +161,7 @@ namespace RCL_Inventory.Controllers
             return View(pvm);
         }
 
-        // GET: Products/Delete/5
+        // Method Get of Delete a Product.
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -184,7 +180,7 @@ namespace RCL_Inventory.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // Method Post of Delete a Product.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -21,9 +21,9 @@ namespace RCL_Inventory.Controllers
             _context = context;
         }
 
-   
 
-        // GET: Transactions
+
+        // Method Get to show Transaction Information.
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -56,6 +56,7 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
+        // Method Post to filter and show Transaction Information accourding with the Transaction Type.
         [HttpPost]
         public async Task<IActionResult> Index(int? id)
         { 
@@ -72,7 +73,7 @@ namespace RCL_Inventory.Controllers
             var products = await _context.Products.Include(t => t.Category).ToListAsync();
             var suppliers = await _context.Suppliers.Include(t => t.Address).ToListAsync();
             var categories = await _context.Categories.ToListAsync();
-            //var transactions = _context.Transaction.Include(t => t.TransactionType).Where(t => t.TransactionTypeId == id.Value).ToListAsync();
+
            PurchaseProductViewModels ppvw = new PurchaseProductViewModels()
             {
                 ProductsList = products,
@@ -89,7 +90,7 @@ namespace RCL_Inventory.Controllers
         }
 
 
-        // GET: Transactions/Details/5
+        // Method Get of Details Transaction
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -111,10 +112,8 @@ namespace RCL_Inventory.Controllers
             return View(transaction);
         }
 
-        // GET: Transactions/Create
 
-        //Criando a multimodel operation
-        // GET: Transactions/Create
+        // Method Get of Create a new Transaction
         [HttpGet]
         public IActionResult CreatePurchase(int? id)
         {
@@ -135,7 +134,8 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-        
+
+        // Method Post of Create a new Transaction
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePurchase(int id,[Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
@@ -195,7 +195,8 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-        // GET: Transactions/Edit/5
+
+        // Method Get of Edit a Transaction
         public async Task<IActionResult> Edit(int? id)
         {
             var products = await _context.Products.Include(t => t.Category).ToListAsync();
@@ -216,9 +217,7 @@ namespace RCL_Inventory.Controllers
            
         }
 
-        // POST: Transactions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method Post of Edit a Transaction
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TransactionId,Date,ProductId,Quantity,TransactionTypeId,SupplierId")] Transaction transaction)
@@ -303,7 +302,8 @@ namespace RCL_Inventory.Controllers
             return View(ppvw);
         }
 
-        // GET: Transactions/Delete/5
+        // 
+        // Method Get of Delete a Transaction
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -325,7 +325,8 @@ namespace RCL_Inventory.Controllers
             return View(transaction);
         }
 
-        // POST: Transactions/Delete/5
+
+        // Method Post of Delete a Transaction
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
