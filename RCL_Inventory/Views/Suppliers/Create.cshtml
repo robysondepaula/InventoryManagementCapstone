@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="~/css/category.css" />
 <link rel="stylesheet" href="~/css/product.css" />
 
+
+<hr />
+
+<h2 class="title">Create Supplier</h2>
+
+<hr />
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -18,12 +25,6 @@
     }
 }
 
-<hr />
-
-
-<h2 class="title">Create Supplier</h2>
-
-<hr />
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div hidden class="form-group">

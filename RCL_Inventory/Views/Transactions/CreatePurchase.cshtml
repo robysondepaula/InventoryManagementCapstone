@@ -9,13 +9,7 @@
 <link rel="stylesheet" href="~/css/category.css" />
 <link rel="stylesheet" href="~/css/product.css" />
 
-@{ if (TempData["failed"] != null)
-    {
-        <div class="d-flex justify-content-center alert alert-danger mt-2">
-            @TempData["failed"]
-        </div>
-    }
-}
+
 
 @{if (Model.TransactionTypeId == 1)
     {
@@ -40,6 +34,13 @@
         <hr />
     }
 
+}
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
 }
 
 

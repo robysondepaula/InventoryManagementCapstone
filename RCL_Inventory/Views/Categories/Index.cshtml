@@ -14,6 +14,14 @@
 <h2 class="title">Categories</h2>
 <hr />
 
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
+
 
 <div class="card">
     <div class="card-header">Categories</div>
@@ -47,12 +55,12 @@
         </table>
 
     </div>
-    
-        <p style="padding-left:1em">
-            <a asp-action="Create" class="btn btn-primary" style="width:65px;font-size:xx-large;">+</a>
-        </p>
 
-   
+    <p style="padding-left:1em">
+        <a asp-action="Create" class="btn btn-primary" style="width:65px;font-size:xx-large;">+</a>
+    </p>
+
+
 </div>
 
 

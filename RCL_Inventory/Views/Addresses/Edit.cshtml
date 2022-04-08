@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="~/css/category.css" />
 <link rel="stylesheet" href="~/css/product.css" />
 
+
+<hr />
+<h2 class="title">Edit</h2>
+<hr />
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -17,10 +22,6 @@
         </div>
     }
 }
-<hr />
-<h2 class="title">Edit</h2>
-<hr />
-
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="AddressId" />

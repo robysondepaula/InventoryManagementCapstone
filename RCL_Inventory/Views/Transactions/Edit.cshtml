@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="~/css/category.css" />
 <link rel="stylesheet" href="~/css/product.css" />
 
+
+
+
+<hr />
+<h2 class="title">Edit Transaction</h2>
+<hr />
+
 @{ if (TempData["failed"] != null)
     {
         <div class="d-flex justify-content-center alert alert-danger mt-2">
@@ -17,11 +24,6 @@
         </div>
     }
 }
-
-
-<hr />
-<h2 class="title">Edit Transaction</h2>
-<hr />
 
 
 <form asp-action="Edit">
@@ -141,11 +143,13 @@
         <input hidden asp-for="Transaction.TransactionTypeId" value="3" />
     }
 
-    <div class="mt-2 d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-2">
         <div class="mr-2">
-            <input type="submit" value="Save" class="btn btn-primary " />
+            <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Save" />|
         </div>
-        <a class="ml-2 btn btn-light" asp-action="Index">Back to List</a>
+        <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+            <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+        </div>
     </div>
 </form>
 

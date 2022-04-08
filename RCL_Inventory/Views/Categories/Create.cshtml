@@ -4,13 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-@{ if (TempData["failed"] != null)
-    {
-        <div class="d-flex justify-content-center alert alert-danger mt-2">
-            @TempData["failed"]
-        </div>
-    }
-}
+
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/css/sitee.css" />
@@ -20,6 +14,14 @@
 <hr />
 <h2 class="title">Create Category</h2>
 <hr />
+
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
 
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -51,6 +53,6 @@
     </div>
 </form>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

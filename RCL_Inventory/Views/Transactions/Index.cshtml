@@ -13,6 +13,11 @@
 <link rel="stylesheet" href="~/css/product.css" />
 <link rek="stylesheet" href="~/css/transactions.css" />
 
+
+<hr />
+<h2 class="title">Transaction Type</h2>
+<hr />
+
 @{ if (TempData["success"] != null)
     {
         <div class="d-flex justify-content-center alert alert-success mt-2">
@@ -21,9 +26,6 @@
     }
 }
 
-<hr />
-<h2 class="title">Transaction Type</h2>
-<hr />
 
 
 <div class="card">
@@ -89,7 +91,7 @@
         }
         else
         {
-             <h3>Transaction Table</h3>
+            <h3>Transaction Table</h3>
         }
 
     </div>
@@ -178,14 +180,14 @@
                     </div>
 
                     @*<div class="form-group col-md d-flex justify-content-end">
-                        <div class="mr-2">
-                            <a asp-action="SubmitTransactions" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-                                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-                                </svg>  Submit
-                            </a>
-                        </div>
-                    </div>*@
+                            <div class="mr-2">
+                                <a asp-action="SubmitTransactions" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                    </svg>  Submit
+                                </a>
+                            </div>
+                        </div>*@
                 }
                 else if (Model.TransactionTypeId == 2)
                 {
@@ -234,27 +236,27 @@ else
 {
 
 
-<div class="card-header">
+    <div class="card-header">
 
 
-    @if (Model.TransactionTypeId == 2)
-    {
-        <h3>Sales Transaction Table</h3>
-    }
-    else if (Model.TransactionTypeId == 1)
-    {
-        <h3>Purchase Transaction Table</h3>
-    }
-    else if (Model.TransactionTypeId == 3)
-    {
-        <h3>Product Loss Table</h3>
-    }
-    else
-    {
-        <h3>Transaction Table</h3>
-    }
+        @if (Model.TransactionTypeId == 2)
+        {
+            <h3>Sales Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 1)
+        {
+            <h3>Purchase Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 3)
+        {
+            <h3>Product Loss Table</h3>
+        }
+        else
+        {
+            <h3>Transaction Table</h3>
+        }
 
-</div>
+    </div>
 
 
     <div class="card">

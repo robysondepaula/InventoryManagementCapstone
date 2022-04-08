@@ -13,6 +13,12 @@
 
 
 
+
+
+<hr />
+<h2 class="title">Addresses</h2>
+<hr />
+
 @{ if (TempData["success"] != null)
     {
         <div class="d-flex justify-content-center alert alert-success mt-2">
@@ -20,12 +26,6 @@
         </div>
     }
 }
-
-
-<hr />
-<h2 class="title">Addresses</h2>
-<hr />
-
 
 
 
@@ -89,12 +89,12 @@
 
 </div>
 
-        @section Scripts {
+@section Scripts {
 
-            <script>
-                $(document).ready(function () {
-                    $('#myTable').DataTable();
-                });
-            </script>
-        }
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
 
